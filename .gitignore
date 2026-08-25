@@ -1,0 +1,22 @@
+# Java build output
+*.class
+*.jar
+*.war
+*.ear
+
+# BlueJ generated files
+*.ctxt
+bluej.pkh
+
+# IDE and editor files
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
