@@ -7,8 +7,13 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ponto.FiguraPontos;
-import reta.FiguraRetas;
+import circulo.CirculoGr;
+import eds.listaLigadaSimples.ListaLigadaSimples;
+import ponto.PontoGr;
+import primitivo.PrimitivoGrafico;
+import reta.RetaGr;
+import retangulo.RetanguloGr;
+import triangulo.TrianguloGr;
 
 /**
  * Cria desenhos de acordo com o tipo e eventos do mouse
@@ -23,15 +28,17 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
     Color corAtual;       // Cor atual do primitivo
     int esp;              // Diametro do ponto
 
-    // Para ponto
-    int x, y;
+    // Pontos coletados pelo mouse
+    int x1, y1, x2, y2, x3, y3;
 
-    // Para reta
-    int x1, y1, x2, y2;
+    // Conta cliques para primitivos que precisam de mais de um ponto
+    int qtdeCliques = 0;
 
-    // selecionar primeiro click do mouse
-    boolean primeiraVez = true;
+    // Estrutura de dados dos primitivos desenhados
+    ListaLigadaSimples<PrimitivoGrafico> primitivos = new ListaLigadaSimples<PrimitivoGrafico>();
 
+    // Filtro usado pelo combobox de redesenho
+    TipoPrimitivo filtroRedesenho = TipoPrimitivo.NENHUM;
 
     /**
      * Constroi o painel de desenho
@@ -60,6 +67,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     public void setTipo(TipoPrimitivo tipo){
         this.tipo = tipo;
+        this.qtdeCliques = 0;
     }
 
     /**
@@ -131,35 +139,100 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param g biblioteca para desenhar em modo grafico
      */
     public void paintComponent(Graphics g) {   
-        desenharPrimitivos(g);
+        super.paintComponent(g);
+        desenharPrimitivosArmazenados(g, filtroRedesenho);
     }
 
-    
+    /**
+     * Limpa somente a tela. Os primitivos continuam armazenados na ED.
+     */
+    public void limparTela() {
+        filtroRedesenho = TipoPrimitivo.NENHUM;
+        qtdeCliques = 0;
+        repaint();
+    }
+
+    /**
+     * Redesenha os primitivos guardados na ED usando o filtro informado.
+     *
+     * @param filtro tipo que deve ser redesenhado
+     */
+    public void redesenharPrimitivos(TipoPrimitivo filtro) {
+        filtroRedesenho = filtro;
+        repaint();
+    }
+
     /**
      * Evento: pressionar do mouse
      *
      * @param e dados do evento
      */
     public void mousePressed(MouseEvent e) { 
-        Graphics g = getGraphics();  
-        if (tipo == TipoPrimitivo.PONTO){
-            x = e.getX();
-            y = e.getY();
-            paint(g);
-        } else if (tipo == TipoPrimitivo.RETA){
+        PrimitivoGrafico primitivo = null;
 
-            if (primeiraVez == true) {
-                x1 = (int)e.getX();
-                y1 = (int)e.getY();
-                primeiraVez = false;
-            } else {
-                x2 = (int)e.getX();
-                y2 = (int)e.getY();
-                primeiraVez = true;
-                paint(g);
-            }
+        if (tipo == TipoPrimitivo.PONTO){
+            primitivo = new PontoGr(e.getX(), e.getY(), getCorAtual(), getEsp());
+        } else if (tipo == TipoPrimitivo.RETA || tipo == TipoPrimitivo.CIRCULO || tipo == TipoPrimitivo.RETANGULO){
+            primitivo = criarPrimitivoComDoisCliques(e);
+        } else if (tipo == TipoPrimitivo.TRIANGULO){
+            primitivo = criarTriangulo(e);
+        }
+
+        if (primitivo != null) {
+            armazenarEDesenhar(primitivo);
         }
     }     
+
+    private PrimitivoGrafico criarPrimitivoComDoisCliques(MouseEvent e) {
+        PrimitivoGrafico primitivo = null;
+
+        if (qtdeCliques == 0) {
+            x1 = e.getX();
+            y1 = e.getY();
+            qtdeCliques = 1;
+        } else {
+            x2 = e.getX();
+            y2 = e.getY();
+            qtdeCliques = 0;
+
+            if (tipo == TipoPrimitivo.RETA) {
+                primitivo = new RetaGr(x1, y1, x2, y2, getCorAtual(), "", getEsp());
+            } else if (tipo == TipoPrimitivo.CIRCULO) {
+                primitivo = new CirculoGr(x1, y1, x2, y2, getCorAtual(), "", getEsp());
+            } else if (tipo == TipoPrimitivo.RETANGULO) {
+                primitivo = new RetanguloGr(x1, y1, x2, y2, getCorAtual(), "", getEsp());
+            }
+        }
+
+        return primitivo;
+    }
+
+    private PrimitivoGrafico criarTriangulo(MouseEvent e) {
+        PrimitivoGrafico primitivo = null;
+
+        if (qtdeCliques == 0) {
+            x1 = e.getX();
+            y1 = e.getY();
+            qtdeCliques = 1;
+        } else if (qtdeCliques == 1) {
+            x2 = e.getX();
+            y2 = e.getY();
+            qtdeCliques = 2;
+        } else {
+            x3 = e.getX();
+            y3 = e.getY();
+            qtdeCliques = 0;
+            primitivo = new TrianguloGr(x1, y1, x2, y2, x3, y3, getCorAtual(), "", getEsp());
+        }
+
+        return primitivo;
+    }
+
+    private void armazenarEDesenhar(PrimitivoGrafico primitivo) {
+        primitivos.inserirFim(primitivo);
+        filtroRedesenho = TipoPrimitivo.NENHUM;
+        primitivo.desenhar(getGraphics());
+    }
 
     public void mouseReleased(MouseEvent e) { 
     }           
@@ -182,27 +255,26 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param e dados do evento do mouse
      */
     public void mouseMoved(MouseEvent e) {
-        this.msg.setText("("+e.getX() + ", " + e.getY() + ") - " + getTipo());
+        this.msg.setText("("+e.getX() + ", " + e.getY() + ") - " + getTipo() + " - ED: " + primitivos.getQtdNos());
     }
 
     /**
-     * Desenha os primitivos
+     * Desenha os primitivos armazenados de acordo com o filtro escolhido.
      *
      * @param g biblioteca para desenhar em modo grafico
+     * @param filtro tipo de primitivo que deve ser desenhado
      */
-    public void desenharPrimitivos(Graphics g){
-        if (tipo == TipoPrimitivo.PONTO){
-            FiguraPontos.desenharPonto(g, x, y, "", getEsp(), getCorAtual());
-            //FiguraPontos.desenharPontos(g, 50, 20);
+    public void desenharPrimitivosArmazenados(Graphics g, TipoPrimitivo filtro){
+        if (filtro == TipoPrimitivo.NENHUM) {
+            return;
         }
 
-        if (tipo == TipoPrimitivo.RETA){
-            FiguraRetas.desenharReta(g, x1, y1, x2, y2, "", getEsp(), getCorAtual());
-            //FiguraRetas.desenharRetas(g, 10, 3);
-        }
+        for (int i = 0; i < primitivos.getQtdNos(); i++) {
+            PrimitivoGrafico primitivo = primitivos.obter(i);
 
-        if (tipo==TipoPrimitivo.CIRCULO){
-            //FiguraCirculos.desenharCirculo(g, x1, y1, x2, y2, "", getEsp(), getCorAtual());
+            if (filtro == TipoPrimitivo.TODOS || primitivo.getTipo().equals(filtro.name())) {
+                primitivo.desenhar(g);
+            }
         }
     }
 }

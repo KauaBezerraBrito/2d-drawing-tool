@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,9 +40,22 @@ class Gui extends JFrame {
     private JButton jbPonto = new JButton("Ponto");
     private JButton jbReta = new JButton("Reta");
     private JButton jbCirculo = new JButton("Circulo");
+    private JButton jbRetangulo = new JButton("Retangulo");
+    private JButton jbTriangulo = new JButton("Triangulo");
     private JButton jbLimpar = new JButton("Limpar");
     private JButton jbCor = new JButton("Cor");
     private JButton jbSair = new JButton("Sair");
+
+    // Combo para redesenhar os primitivos armazenados na ED
+    private JLabel jlRedesenhar = new JLabel("   Redesenhar: ");
+    private JComboBox<TipoPrimitivo> jcRedesenhar = new JComboBox<TipoPrimitivo>(new TipoPrimitivo[] {
+        TipoPrimitivo.TODOS,
+        TipoPrimitivo.PONTO,
+        TipoPrimitivo.RETA,
+        TipoPrimitivo.CIRCULO,
+        TipoPrimitivo.RETANGULO,
+        TipoPrimitivo.TRIANGULO
+    });
 
     // Entrada (slider) para definir espessura dos primitivos
     private JLabel jlEsp = new JLabel("   Espessura: " + String.format("%-5s", 1));
@@ -67,12 +81,16 @@ class Gui extends JFrame {
         barraComandos.add(jbPonto);
         barraComandos.add(jbReta);
         barraComandos.add(jbCirculo);
+        barraComandos.add(jbRetangulo);
+        barraComandos.add(jbTriangulo);
         barraComandos.add(jbLimpar); // Botao de Limpar
         barraComandos.add(jbCor); // Botao de Cores
 
         barraComandos.add(jlEsp); // Label para espessura
         barraComandos.add(jsEsp);    // Slider para espacamento
         areaDesenho.setEsp(espAtual); // define a espessura inicial
+        barraComandos.add(jlRedesenhar);
+        barraComandos.add(jcRedesenhar);
         barraComandos.add(jbSair); // Botao de Cores
 
         // adiciona os componentes com os respectivos layouts
@@ -94,10 +112,17 @@ class Gui extends JFrame {
             tipoAtual = TipoPrimitivo.CIRCULO;
             areaDesenho.setTipo(tipoAtual);
         });        
+        jbRetangulo.addActionListener(e -> {
+            tipoAtual = TipoPrimitivo.RETANGULO;
+            areaDesenho.setTipo(tipoAtual);
+        });
+        jbTriangulo.addActionListener(e -> {
+            tipoAtual = TipoPrimitivo.TRIANGULO;
+            areaDesenho.setTipo(tipoAtual);
+        });
         jbLimpar.addActionListener(e -> {
-            areaDesenho.removeAll();
-            jsEsp.setValue(1); // inicia slider (necessario para limpar ultimo primitivoda tela) 
-            repaint();        
+            areaDesenho.limparTela();
+            jsEsp.setValue(1); // inicia slider
         });        
         jbCor.addActionListener(e -> {
             Color c = JColorChooser.showDialog(null, "Escolha uma cor", msg.getForeground()); 
@@ -111,6 +136,10 @@ class Gui extends JFrame {
             jlEsp.setText("   Espessura: " + String.format("%-5s", espAtual));
             areaDesenho.setEsp(espAtual);        
         });        
+        jcRedesenhar.addActionListener(e -> {
+            TipoPrimitivo filtro = (TipoPrimitivo)jcRedesenhar.getSelectedItem();
+            areaDesenho.redesenharPrimitivos(filtro);
+        });
 
         jbSair.addActionListener(e -> {
             System.exit(0);
