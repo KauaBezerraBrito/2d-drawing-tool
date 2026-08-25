@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import ponto.PontoGr;
+import primitivo.PrimitivoGrafico;
 
 /**
  * Implementacao da classe reta grafica.
@@ -10,7 +11,7 @@ import ponto.PontoGr;
  * @author Julio Arakaki
  * @version 1.0 - 24/08/2020
  */
-public class RetaGr extends Reta{
+public class RetaGr extends Reta implements PrimitivoGrafico {
     // Atributos da reta grafica
     Color corReta = Color.BLACK;   // cor da reta
     String nomeReta = ""; // nome da reta
@@ -220,7 +221,7 @@ public class RetaGr extends Reta{
             }
             // percorre de y1 ate y2. 
             for(y = cIni; y <= cFim; y++){ 
-                // x1 e x2 são iguais
+                // x1 e x2 sï¿½o iguais
                 x = p1.getX(); // ou x = p2.getX()
 
                 // Define ponto grafico
@@ -241,7 +242,7 @@ public class RetaGr extends Reta{
             }
 
             // percorre de x1 ate x2. 
-            // y e´ calculado pela equacao: y = mx + b
+            // y eï¿½ calculado pela equacao: y = mx + b
             for(x = cIni; x <= cFim; x++){ 
                 // Calculo de y pela equacao da reta
                 y = (m*x + b);
@@ -332,7 +333,21 @@ public class RetaGr extends Reta{
             }
         }
     }
+    /**
+     * Desenha a reta armazenada na ED.
+     *
+     * @param g contexto grafico
+     */
+    public void desenhar(Graphics g) {
+        desenharRetaMp(g);
+    }
 
+    /**
+     * Retorna o tipo do primitivo grafico.
+     *
+     * @return tipo do primitivo
+     */
+    public String getTipo() {
+        return "RETA";
+    }
 }
-
-

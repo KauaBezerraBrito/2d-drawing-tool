@@ -5,5 +5,6 @@
  * @version 20220815
  */
 public enum TipoPrimitivo {
-    PONTO, RETA, CIRCULO, NENHUM
+    PONTO, RETA, CIRCULO, RETANGULO, TRIANGULO, TODOS, NENHUM
 }
+

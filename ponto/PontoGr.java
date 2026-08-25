@@ -3,7 +3,15 @@ package ponto;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class PontoGr extends Ponto {
+import primitivo.PrimitivoGrafico;
+
+/**
+ * Representacao grafica de um ponto.
+ * 
+ * @author Kaua Bezerra Brito
+ * @version 20260824
+ */
+public class PontoGr extends Ponto implements PrimitivoGrafico {
     Color corPto = Color.BLACK; // cor do ponto
     String nomePto = ""; // nome do ponto
     Color corNomePto  = Color.BLACK; // cor do nome (string) do ponto  
@@ -139,5 +147,22 @@ public class PontoGr extends Ponto {
         // desenha nome do ponto
         g.setColor(getCorNomePto());
         g.drawString(getNomePto(), (int)getX() + getDiametro(), (int)getY());
+    }
+    /**
+     * Desenha o ponto armazenado na ED.
+     *
+     * @param g contexto grafico
+     */
+    public void desenhar(Graphics g) {
+        desenharPonto(g);
+    }
+
+    /**
+     * Retorna o tipo do primitivo grafico.
+     *
+     * @return tipo do primitivo
+     */
+    public String getTipo() {
+        return "PONTO";
     }
 }
