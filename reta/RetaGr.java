@@ -15,6 +15,7 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
     // Atributos da reta grafica
     Color corReta = Color.BLACK;   // cor da reta
     String nomeReta = ""; // nome da reta
+    /** Armazena corNomeReta da classe. */
     Color corNomeReta  = Color.BLACK;
     int espReta = 1; // espessura da reta
 

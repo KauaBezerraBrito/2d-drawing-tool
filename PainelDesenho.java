@@ -23,23 +23,44 @@ import triangulo.TrianguloGr;
  */
 public class PainelDesenho extends JPanel implements MouseListener, MouseMotionListener {
 
-    JLabel msg;           // Label para mensagens
-    TipoPrimitivo tipo; // Tipo do primitivo
-    Color corAtual;       // Cor atual do primitivo
-    int esp;              // Diametro do ponto
+    /** Label usada para exibir mensagens no rodape. */
+    JLabel msg;
 
-    // Pontos coletados pelo mouse
-    int x1, y1, x2, y2, x3, y3;
+    /** Tipo atual de primitivo selecionado. */
+    TipoPrimitivo tipo;
 
-    // Conta cliques para primitivos que precisam de mais de um ponto
+    /** Cor atual usada para desenhar novos primitivos. */
+    Color corAtual;
+
+    /** Espessura atual usada para desenhar novos primitivos. */
+    int esp;
+
+    /** Primeira coordenada x coletada pelo mouse. */
+    int x1;
+
+    /** Primeira coordenada y coletada pelo mouse. */
+    int y1;
+
+    /** Segunda coordenada x coletada pelo mouse. */
+    int x2;
+
+    /** Segunda coordenada y coletada pelo mouse. */
+    int y2;
+
+    /** Terceira coordenada x coletada pelo mouse. */
+    int x3;
+
+    /** Terceira coordenada y coletada pelo mouse. */
+    int y3;
+
+    /** Quantidade de cliques ja coletados para o primitivo atual. */
     int qtdeCliques = 0;
 
-    // Estrutura de dados dos primitivos desenhados
+    /** Estrutura de dados que armazena os primitivos desenhados. */
     ListaLigadaSimples<PrimitivoGrafico> primitivos = new ListaLigadaSimples<PrimitivoGrafico>();
 
-    // Filtro usado pelo combobox de redesenho
+    /** Filtro usado pelo combo de redesenho. */
     TipoPrimitivo filtroRedesenho = TipoPrimitivo.NENHUM;
-
     /**
      * Constroi o painel de desenho
      *
@@ -183,6 +204,12 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         }
     }     
 
+    /**
+     * Cria retas, circulos ou retangulos a partir de dois cliques.
+     *
+     * @param e valor de e
+     * @return valor retornado
+     */
     private PrimitivoGrafico criarPrimitivoComDoisCliques(MouseEvent e) {
         PrimitivoGrafico primitivo = null;
 
@@ -207,6 +234,12 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         return primitivo;
     }
 
+    /**
+     * Cria um triangulo a partir de tres cliques.
+     *
+     * @param e valor de e
+     * @return valor retornado
+     */
     private PrimitivoGrafico criarTriangulo(MouseEvent e) {
         PrimitivoGrafico primitivo = null;
 
@@ -228,24 +261,54 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         return primitivo;
     }
 
+    /**
+     * Armazena o primitivo na ED e desenha imediatamente na tela.
+     *
+     * @param primitivo valor de primitivo
+     */
     private void armazenarEDesenhar(PrimitivoGrafico primitivo) {
         primitivos.inserirFim(primitivo);
         filtroRedesenho = TipoPrimitivo.NENHUM;
         primitivo.desenhar(getGraphics());
     }
 
+    /**
+     * Trata o evento de mouse mouseReleased.
+     *
+     * @param e valor de e
+     */
     public void mouseReleased(MouseEvent e) { 
     }           
 
+    /**
+     * Trata o evento de mouse mouseClicked.
+     *
+     * @param e valor de e
+     */
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * Trata o evento de mouse mouseEntered.
+     *
+     * @param e valor de e
+     */
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+     * Trata o evento de mouse mouseExited.
+     *
+     * @param e valor de e
+     */
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * Trata o evento de mouse mouseDragged.
+     *
+     * @param e valor de e
+     */
     public void mouseDragged(MouseEvent e) {
     }
 

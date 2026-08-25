@@ -9,7 +9,9 @@ import ponto.Ponto;
  * @version 20260825
  */
 public class Circulo {
+    /** Armazena centro da classe. */
     private Ponto centro;
+    /** Armazena raio da classe. */
     private int raio;
 
     /**
@@ -36,24 +38,51 @@ public class Circulo {
         this(xCentro, yCentro, calcularRaio(xCentro, yCentro, xBorda, yBorda));
     }
 
+    /**
+     * Calcula o raio a partir do centro e de um ponto da borda.
+     *
+     * @param xCentro valor de xCentro
+     * @param yCentro valor de yCentro
+     * @param xBorda valor de xBorda
+     * @param yBorda valor de yBorda
+     * @return valor retornado
+     */
     private static int calcularRaio(int xCentro, int yCentro, int xBorda, int yBorda) {
         double dx = xBorda - xCentro;
         double dy = yBorda - yCentro;
         return (int)Math.round(Math.sqrt(dx * dx + dy * dy));
     }
 
+    /**
+     * Retorna o valor de Centro.
+     * @return valor retornado
+     */
     public Ponto getCentro() {
         return this.centro;
     }
 
+    /**
+     * Altera o valor de Centro.
+     *
+     * @param centro valor de centro
+     */
     public void setCentro(Ponto centro) {
         this.centro = centro;
     }
 
+    /**
+     * Retorna o valor de Raio.
+     * @return valor retornado
+     */
     public int getRaio() {
         return this.raio;
     }
 
+    /**
+     * Altera o valor de Raio.
+     *
+     * @param raio valor de raio
+     */
     public void setRaio(int raio) {
         if (raio < 0) {
             this.raio = 0;
@@ -62,6 +91,10 @@ public class Circulo {
         }
     }
 
+    /**
+     * Retorna a representacao textual do objeto.
+     * @return valor retornado
+     */
     public String toString() {
         return "Circulo [centro=" + getCentro() + ", raio=" + getRaio() + "]";
     }

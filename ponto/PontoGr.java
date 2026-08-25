@@ -16,6 +16,12 @@ public class PontoGr extends Ponto implements PrimitivoGrafico {
     String nomePto = ""; // nome do ponto
     Color corNomePto  = Color.BLACK; // cor do nome (string) do ponto  
     int diametro = 1; // diametro do ponto, default = 1
+    /**
+     * Constroi um objeto da classe PontoGr.
+     *
+     * @param x valor de x
+     * @param y valor de y
+     */
     public PontoGr(int x, int y){
         super((double)x, (double)y);
         setCorPto(Color.black);     
@@ -23,6 +29,13 @@ public class PontoGr extends Ponto implements PrimitivoGrafico {
         setNomePto("");     
     }
 
+    /**
+     * Constroi um objeto da classe PontoGr.
+     *
+     * @param x valor de x
+     * @param y valor de y
+     * @param cor valor de cor
+     */
     public PontoGr(int x, int y, Color cor){
         super((double)x, (double)y);
         setCorPto(cor);     
@@ -57,6 +70,14 @@ public class PontoGr extends Ponto implements PrimitivoGrafico {
         setNomePto(nomePonto);
     }
 
+    /**
+     * Constroi um objeto da classe PontoGr.
+     *
+     * @param x valor de x
+     * @param y valor de y
+     * @param cor valor de cor
+     * @param str valor de str
+     */
     public PontoGr(int x, int y, Color cor, String str){
         super((double)x, (double)y);
         setCorPto(cor);     
@@ -64,6 +85,12 @@ public class PontoGr extends Ponto implements PrimitivoGrafico {
         setNomePto(str);     
     }
 
+    /**
+     * Constroi um objeto da classe PontoGr.
+     *
+     * @param p2d valor de p2d
+     * @param cor valor de cor
+     */
     public PontoGr(PontoGr p2d, Color cor){
         super(p2d);     
         setCorPto(cor);     
@@ -71,6 +98,9 @@ public class PontoGr extends Ponto implements PrimitivoGrafico {
         setNomePto("");     
     }
 
+    /**
+     * Constroi um objeto da classe PontoGr.
+     */
     public PontoGr(){
         super((double)0, (double)0);
         setCorPto(Color.black);     

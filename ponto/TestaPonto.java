@@ -7,6 +7,11 @@ package ponto;
  * @version 20260825
  */
 public class TestaPonto{
+    /**
+     * Inicia a execucao da classe.
+     *
+     * @param args valor de args
+     */
     public static void main(String args[]) {
         Ponto p1 = new Ponto();
         Ponto p2 = new Ponto(1, 1);

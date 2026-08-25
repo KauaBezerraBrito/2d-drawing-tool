@@ -7,7 +7,9 @@ package ponto;
  * @version 20260825
  */
 public class Ponto {
+    /** Armazena x da classe. */
     private double x;
+    /** Armazena y da classe. */
     private double y;
     /**
      * Constroi um ponto em 0,0
@@ -90,6 +92,10 @@ public class Ponto {
      * @return string representando o ponto
      */
     @Override
+    /**
+     * Retorna a representacao textual do objeto.
+     * @return valor retornado
+     */
     public String toString() {
         return "Ponto [" + getX() + ", " + getY() +  "]";
     }

@@ -17,37 +17,52 @@ import javax.swing.JToolBar;
  * @version 20260825
  */
 class Gui extends JFrame {
-    // Tipo Atual de primitivo
+    /** Tipo atual de primitivo selecionado pelo usuario. */
     private TipoPrimitivo tipoAtual = TipoPrimitivo.NENHUM;
 
-    // Cor atual
+    /** Cor atual usada nos novos primitivos. */
     private Color corAtual = Color.BLACK;
 
-    // Espessura atual do primitivo
+    /** Espessura atual usada nos novos primitivos. */
     private int espAtual = 1;
 
-    // Componentes de GUI
-    // barra de menu (inserir componente)
+    /** Barra de ferramentas com os comandos da aplicacao. */
     private JToolBar barraComandos = new JToolBar();
 
-    // mensagens
+    /** Mensagem exibida no rodape da janela. */
     private JLabel msg = new JLabel("Msg: ");
 
-    // Painel de desenho
+    /** Area central responsavel pelo desenho dos primitivos. */
     private PainelDesenho areaDesenho = new PainelDesenho(msg, tipoAtual, corAtual, 10);
 
-    // Botoes
+    /** Botao para selecionar o primitivo ponto. */
     private JButton jbPonto = new JButton("Ponto");
+
+    /** Botao para selecionar o primitivo reta. */
     private JButton jbReta = new JButton("Reta");
+
+    /** Botao para selecionar o primitivo circulo. */
     private JButton jbCirculo = new JButton("Circulo");
+
+    /** Botao para selecionar o primitivo retangulo. */
     private JButton jbRetangulo = new JButton("Retangulo");
+
+    /** Botao para selecionar o primitivo triangulo. */
     private JButton jbTriangulo = new JButton("Triangulo");
+
+    /** Botao para limpar somente a tela. */
     private JButton jbLimpar = new JButton("Limpar");
+
+    /** Botao para alterar a cor atual. */
     private JButton jbCor = new JButton("Cor");
+
+    /** Botao para encerrar a aplicacao. */
     private JButton jbSair = new JButton("Sair");
 
-    // Combo para redesenhar os primitivos armazenados na ED
+    /** Texto associado ao combo de redesenho. */
     private JLabel jlRedesenhar = new JLabel("   Redesenhar: ");
+
+    /** Combo que define o tipo de primitivo a ser redesenhado a partir da ED. */
     private JComboBox<TipoPrimitivo> jcRedesenhar = new JComboBox<TipoPrimitivo>(new TipoPrimitivo[] {
         TipoPrimitivo.TODOS,
         TipoPrimitivo.PONTO,
@@ -57,10 +72,11 @@ class Gui extends JFrame {
         TipoPrimitivo.TRIANGULO
     });
 
-    // Entrada (slider) para definir espessura dos primitivos
+    /** Texto que mostra a espessura atual. */
     private JLabel jlEsp = new JLabel("   Espessura: " + String.format("%-5s", 1));
-    private JSlider jsEsp = new JSlider(1, 50, 1);
 
+    /** Slider usado para escolher a espessura dos primitivos. */
+    private JSlider jsEsp = new JSlider(1, 50, 1);
     /**
      * Constroi a GUI
      *

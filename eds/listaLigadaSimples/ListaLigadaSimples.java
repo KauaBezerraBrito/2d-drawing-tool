@@ -7,38 +7,70 @@ package eds.listaLigadaSimples;
  * @version 20260825
  */
 public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
+    /** Armazena inicio da classe. */
     private No inicio;
+    /** Armazena fim da classe. */
     private No fim;
+    /** Armazena qtdNos da classe. */
     private int qtdNos;
 
     /**
      * No de uma lista ligada simples.
      */
     private class No {
+        /** Armazena conteudo da classe. */
         private T conteudo;
+        /** Armazena proximo da classe. */
         private No proximo;
 
+        /**
+         * Constroi um objeto da classe No.
+         *
+         * @param conteudo valor de conteudo
+         */
         public No(T conteudo) {
             setConteudo(conteudo);
             setProximo(null);
         }
 
+        /**
+         * Altera o valor de Conteudo.
+         *
+         * @param conteudo valor de conteudo
+         */
         public void setConteudo(T conteudo) {
             this.conteudo = conteudo;
         }
 
+        /**
+         * Altera o valor de Proximo.
+         *
+         * @param proximo valor de proximo
+         */
         public void setProximo(No proximo) {
             this.proximo = proximo;
         }
 
+        /**
+         * Retorna o valor de Conteudo.
+         * @return valor retornado
+         */
         public T getConteudo() {
             return this.conteudo;
         }
 
+        /**
+         * Retorna o valor de Proximo.
+         * @return valor retornado
+         */
         public No getProximo() {
             return this.proximo;
         }
 
+        /**
+         * Retorna a representacao textual do objeto.
+         * @return valor retornado
+         */
         public String toString() {
             return conteudo.toString();
         }
@@ -53,18 +85,36 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
         setQtdNos(0);
     }
 
+    /**
+     * Altera o valor de Inicio.
+     *
+     * @param inicio valor de inicio
+     */
     private void setInicio(No inicio) {
         this.inicio = inicio;
     }
 
+    /**
+     * Retorna o valor de Inicio.
+     * @return valor retornado
+     */
     private No getInicio() {
         return this.inicio;
     }
 
+    /**
+     * Retorna o valor de Fim.
+     * @return valor retornado
+     */
     private No getFim() {
         return this.fim;
     }
 
+    /**
+     * Altera o valor de Fim.
+     *
+     * @param fim valor de fim
+     */
     private void setFim(No fim) {
         this.fim = fim;
     }
@@ -78,6 +128,11 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
         return this.qtdNos;
     }
 
+    /**
+     * Altera o valor de QtdNos.
+     *
+     * @param qtdNos valor de qtdNos
+     */
     private void setQtdNos(int qtdNos) {
         this.qtdNos = qtdNos;
     }
