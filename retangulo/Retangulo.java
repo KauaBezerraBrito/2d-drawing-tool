@@ -6,7 +6,7 @@ import ponto.Ponto;
  * Representacao matematica de um retangulo.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class Retangulo {
     private Ponto p1;

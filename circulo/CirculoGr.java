@@ -10,7 +10,7 @@ import primitivo.PrimitivoGrafico;
  * Representacao grafica de um circulo.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class CirculoGr extends Circulo implements PrimitivoGrafico {
     private Color corCirculo = Color.BLACK;

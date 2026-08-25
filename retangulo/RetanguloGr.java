@@ -10,7 +10,7 @@ import reta.RetaGr;
  * Representacao grafica de um retangulo.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
     private Color corRetangulo = Color.BLACK;

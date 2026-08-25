@@ -64,4 +64,3 @@ Para compilar pelo terminal:
 ```bash
 javac -encoding windows-1252 App.java
 ```
-

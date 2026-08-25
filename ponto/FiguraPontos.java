@@ -6,7 +6,7 @@ import java.awt.Graphics;
  * Contem metodos para desenhar figuras com ponto
  * 
  * @author Kaua Bezerra Brito
- * @version 20220815
+ * @version 20260825
  */
 public class FiguraPontos {
 
@@ -48,4 +48,3 @@ public class FiguraPontos {
 		}
 	}
 }
-

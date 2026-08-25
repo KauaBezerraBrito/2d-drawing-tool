@@ -1,10 +1,9 @@
-
 /**
  * Aplicacao para testar primitivos graficos.
  *  - inclusao do algoritmo "midpoint" para reta
  *  
  * @author Kaua Bezerra Brito
- * @version 20260818
+ * @version 20260825
  */
 public class App {
     public static void main(String args[]) {
@@ -12,4 +11,3 @@ public class App {
         new Gui(700, 600); 
     }
 }
-

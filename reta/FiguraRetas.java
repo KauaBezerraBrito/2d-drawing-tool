@@ -6,7 +6,7 @@ import java.awt.Graphics;
  * Desenha figuras com retas.
  * 
  * @author Kaua Bezerra Brito
- * @version 20220815
+ * @version 20260825
  */
 public class FiguraRetas {
     /**
@@ -50,4 +50,3 @@ public class FiguraRetas {
         }
     }
 }
-

@@ -4,7 +4,7 @@ package eds.listaLigadaSimples;
  * Metodos a serem implementados numa Lista Ligada Simples.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public interface IListaLigadaSimples<T> {
     boolean estaVazia();

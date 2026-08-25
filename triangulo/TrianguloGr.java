@@ -10,7 +10,7 @@ import reta.RetaGr;
  * Representacao grafica de um triangulo.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
     private Color corTriangulo = Color.BLACK;

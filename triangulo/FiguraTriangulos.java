@@ -7,7 +7,7 @@ import java.awt.Graphics;
  * Contem metodos para desenhar figuras com triangulo.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class FiguraTriangulos {
     /**

@@ -4,7 +4,7 @@ package ponto;
  * Representacao de ponto matematico
  * 
  * @author Kaua Bezerra Brito
- * @version 20220815
+ * @version 20260825
  */
 public class Ponto {
     private double x;
@@ -94,4 +94,3 @@ public class Ponto {
         return "Ponto [" + getX() + ", " + getY() +  "]";
     }
 }
-

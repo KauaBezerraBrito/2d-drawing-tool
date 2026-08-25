@@ -4,7 +4,7 @@ import ponto.Ponto;
  * Reta matematica.
  *
  * @author Kaua Bezerra Brito
- * @version 12/08/2020
+ * @version 20260825
  */
 public class Reta {
  
@@ -127,4 +127,3 @@ public class Reta {
     }
    
 }
-

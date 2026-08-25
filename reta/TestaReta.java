@@ -4,7 +4,7 @@ package reta;
  * Testa a classe Reta.
  * 
  * @author Kaua Bezerra Brito
- * @version 20220815
+ * @version 20260825
  */
 public class TestaReta {
     public static void main(String args[]) {

@@ -9,7 +9,7 @@ import primitivo.PrimitivoGrafico;
  * Representacao grafica de um ponto.
  * 
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class PontoGr extends Ponto implements PrimitivoGrafico {
     Color corPto = Color.BLACK; // cor do ponto

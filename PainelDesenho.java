@@ -19,7 +19,7 @@ import triangulo.TrianguloGr;
  * Cria desenhos de acordo com o tipo e eventos do mouse
  * 
  * @author Kaua Bezerra Brito
- * @version 20220815
+ * @version 20260825
  */
 public class PainelDesenho extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -278,4 +278,3 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         }
     }
 }
-

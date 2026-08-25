@@ -6,7 +6,7 @@ import ponto.Ponto;
  * Representacao matematica de um circulo.
  *
  * @author Kaua Bezerra Brito
- * @version 20260824
+ * @version 20260825
  */
 public class Circulo {
     private Ponto centro;

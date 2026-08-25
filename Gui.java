@@ -14,7 +14,7 @@ import javax.swing.JToolBar;
  * Cria a interface com o usuario (GUI)
  * 
  * @author Kaua Bezerra Brito
- * @version 20220815
+ * @version 20260825
  */
 class Gui extends JFrame {
     // Tipo Atual de primitivo
@@ -146,4 +146,3 @@ class Gui extends JFrame {
         });        
     }
 }
-
