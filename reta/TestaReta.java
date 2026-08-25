@@ -3,7 +3,7 @@ package reta;
 /**
  * Testa a classe Reta.
  * 
- * @author Julio Arakaki 
+ * @author Kaua Bezerra Brito
  * @version 20220815
  */
 public class TestaReta {

@@ -3,7 +3,7 @@
  * Aplicacao para testar primitivos graficos.
  *  - inclusao do algoritmo "midpoint" para reta
  *  
- * @author Julio Arakaki 
+ * @author Kaua Bezerra Brito
  * @version 20260818
  */
 public class App {
@@ -12,3 +12,4 @@ public class App {
         new Gui(700, 600); 
     }
 }
+

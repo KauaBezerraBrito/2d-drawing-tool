@@ -8,7 +8,7 @@ import primitivo.PrimitivoGrafico;
 /**
  * Implementacao da classe reta grafica.
  *
- * @author Julio Arakaki
+ * @author Kaua Bezerra Brito
  * @version 1.0 - 24/08/2020
  */
 public class RetaGr extends Reta implements PrimitivoGrafico {
@@ -351,3 +351,4 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
         return "RETA";
     }
 }
+

@@ -13,7 +13,7 @@ import javax.swing.JToolBar;
 /**
  * Cria a interface com o usuario (GUI)
  * 
- * @author Julio Arakaki 
+ * @author Kaua Bezerra Brito
  * @version 20220815
  */
 class Gui extends JFrame {
@@ -146,3 +146,4 @@ class Gui extends JFrame {
         });        
     }
 }
+

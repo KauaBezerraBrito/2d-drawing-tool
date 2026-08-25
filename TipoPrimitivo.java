@@ -1,10 +1,11 @@
 /**
  * Cria um tipo enumerado (enum)
  * 
- * @author Julio Arakaki 
+ * @author Kaua Bezerra Brito
  * @version 20220815
  */
 public enum TipoPrimitivo {
     PONTO, RETA, CIRCULO, RETANGULO, TRIANGULO, TODOS, NENHUM
 }
+
 

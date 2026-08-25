@@ -3,7 +3,7 @@ package ponto;
 /**
  * Write a description of class TestaPonto here.
  *
- * @author (your name)
+ * @author Kaua Bezerra Brito
  * @version (a version number or a date)
  */
 public class TestaPonto{
@@ -19,3 +19,4 @@ public class TestaPonto{
         System.out.println("distancia entre p2 e p3 = " + p2.calcularDistancia(p3));
     }
 }
+

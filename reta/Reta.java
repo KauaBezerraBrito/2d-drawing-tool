@@ -3,7 +3,7 @@ import ponto.Ponto;
 /**
  * Reta matematica.
  *
- * @author Julio
+ * @author Kaua Bezerra Brito
  * @version 12/08/2020
  */
 public class Reta {
@@ -40,8 +40,8 @@ public class Reta {
     /**
      * Controi uma reta com valores de p1 e p2 (externos)
      *
-     * @param p1 Um parâmetro
-     * @param p2 Um parâmetro
+     * @param p1 Um parï¿½metro
+     * @param p2 Um parï¿½metro
      */
     public Reta(Ponto p1, Ponto p2) {
         setP1(p1);
@@ -127,3 +127,4 @@ public class Reta {
     }
    
 }
+

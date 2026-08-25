@@ -3,7 +3,7 @@ package ponto;
 /**
  * Representacao de ponto matematico
  * 
- * @author Julio Arakaki
+ * @author Kaua Bezerra Brito
  * @version 20220815
  */
 public class Ponto {
@@ -85,7 +85,7 @@ public class Ponto {
 
     
     /**
-     * Método sobrecarregado que imprime um ponto no formato [x, y]
+     * Mï¿½todo sobrecarregado que imprime um ponto no formato [x, y]
      *
      * @return string representando o ponto
      */
@@ -94,3 +94,4 @@ public class Ponto {
         return "Ponto [" + getX() + ", " + getY() +  "]";
     }
 }
+

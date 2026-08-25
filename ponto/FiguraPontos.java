@@ -5,14 +5,14 @@ import java.awt.Graphics;
 /**
  * Contem metodos para desenhar figuras com ponto
  * 
- * @author Julio Arakaki
+ * @author Kaua Bezerra Brito
  * @version 20220815
  */
 public class FiguraPontos {
 
 	/**
 	 * Desenha um ponto na tela
-	 * @param g biblioteca grafica para desenhar elementos gráficos
+	 * @param g biblioteca grafica para desenhar elementos grï¿½ficos
 	 * @param x coordena x do ponto
 	 * @param y coordenada y do ponto
 	 * @param nome nome do ponto
@@ -29,7 +29,7 @@ public class FiguraPontos {
 
 	/**
 	 * Desenha variso pontos na tela com cores diferentes
-	 * @param g biblioteca grafica para desenhar elementos gráficos
+	 * @param g biblioteca grafica para desenhar elementos grï¿½ficos
 	 * @param qtde quantidade de pontos
 	 * @param diametro diametro do pontos
 	 */
@@ -48,3 +48,4 @@ public class FiguraPontos {
 		}
 	}
 }
+
