@@ -3,10 +3,12 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import persistencia.PersistenciaJSON;
 import circulo.CirculoGr;
 import eds.listaLigadaSimples.ListaLigadaSimples;
 import ponto.PontoGr;
@@ -61,22 +63,23 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
 
     /** Filtro usado pelo combo de redesenho. */
     TipoPrimitivo filtroRedesenho = TipoPrimitivo.NENHUM;
+
     /**
      * Constroi o painel de desenho
      *
-     * @param msg mensagem a ser escrita no rodape do painel
-     * @param tipo tipo atual do primitivo
+     * @param msg      mensagem a ser escrita no rodape do painel
+     * @param tipo     tipo atual do primitivo
      * @param corAtual cor atual do primitivo
-     * @param esp espessura atual do primitivo
+     * @param esp      espessura atual do primitivo
      */
-    public PainelDesenho(JLabel msg, TipoPrimitivo tipo, Color corAtual, int esp){
+    public PainelDesenho(JLabel msg, TipoPrimitivo tipo, Color corAtual, int esp) {
         setTipo(tipo);
         setMsg(msg);
         setCorAtual(corAtual);
         setEsp(esp);
 
         // Adiciona "ouvidor" de eventos de mouse
-        this.addMouseListener(this); 
+        this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
     }
@@ -86,7 +89,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @param tipo tipo do primitivo
      */
-    public void setTipo(TipoPrimitivo tipo){
+    public void setTipo(TipoPrimitivo tipo) {
         this.tipo = tipo;
         this.qtdeCliques = 0;
     }
@@ -96,7 +99,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @return tipo do primitivo
      */
-    public TipoPrimitivo getTipo(){
+    public TipoPrimitivo getTipo() {
         return this.tipo;
     }
 
@@ -105,7 +108,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @param esp espessura do primitivo
      */
-    public void setEsp(int esp){
+    public void setEsp(int esp) {
         this.esp = esp;
     }
 
@@ -114,7 +117,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @return espessura do primitivo
      */
-    public int getEsp(){
+    public int getEsp() {
         return this.esp;
     }
 
@@ -123,7 +126,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @param corAtual cor atual do primitivo
      */
-    public void setCorAtual(Color corAtual){
+    public void setCorAtual(Color corAtual) {
         this.corAtual = corAtual;
     }
 
@@ -132,7 +135,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @return cor atual do primitivo
      */
-    public Color getCorAtual(){
+    public Color getCorAtual() {
         return this.corAtual;
     }
 
@@ -141,7 +144,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @param msg mensagem a ser apresentada
      */
-    public void setMsg(JLabel msg){
+    public void setMsg(JLabel msg) {
         this.msg = msg;
     }
 
@@ -150,7 +153,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @return mensagem as ser apresentada no rodape
      */
-    public JLabel getMsg(){
+    public JLabel getMsg() {
         return this.msg;
     }
 
@@ -159,7 +162,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @param g biblioteca para desenhar em modo grafico
      */
-    public void paintComponent(Graphics g) {   
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         desenharPrimitivosArmazenados(g, filtroRedesenho);
     }
@@ -184,25 +187,59 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
     }
 
     /**
+     * Salva os primitivos atualmente armazenados na ED em um arquivo JSON.
+     * As coordenadas sao normalizadas de acordo com o tamanho atual do painel.
+     *
+     * @param caminho caminho do arquivo a ser gravado (ex.: "saves/desenho.json")
+     */
+    public void salvarArquivo(String caminho) {
+        try {
+            PersistenciaJSON.salvar(caminho, primitivos, getWidth(), getHeight());
+            msg.setText("Desenho salvo em: " + caminho + " - ED: " + primitivos.getQtdNos());
+        } catch (IOException e) {
+            msg.setText("Erro ao salvar: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Carrega os primitivos gravados em um arquivo JSON, substituindo o desenho
+     * atual.
+     * As coordenadas normalizadas sao convertidas de volta usando o tamanho atual
+     * do painel.
+     *
+     * @param caminho caminho do arquivo a ser lido
+     */
+    public void carregarArquivo(String caminho) {
+        try {
+            primitivos = PersistenciaJSON.carregar(caminho, getWidth(), getHeight());
+            filtroRedesenho = TipoPrimitivo.TODOS;
+            repaint();
+            msg.setText("Desenho carregado de: " + caminho + " - ED: " + primitivos.getQtdNos());
+        } catch (IOException e) {
+            msg.setText("Erro ao carregar: " + e.getMessage());
+        }
+    }
+
+    /**
      * Evento: pressionar do mouse
      *
      * @param e dados do evento
      */
-    public void mousePressed(MouseEvent e) { 
+    public void mousePressed(MouseEvent e) {
         PrimitivoGrafico primitivo = null;
 
-        if (tipo == TipoPrimitivo.PONTO){
+        if (tipo == TipoPrimitivo.PONTO) {
             primitivo = new PontoGr(e.getX(), e.getY(), getCorAtual(), getEsp());
-        } else if (tipo == TipoPrimitivo.RETA || tipo == TipoPrimitivo.CIRCULO || tipo == TipoPrimitivo.RETANGULO){
+        } else if (tipo == TipoPrimitivo.RETA || tipo == TipoPrimitivo.CIRCULO || tipo == TipoPrimitivo.RETANGULO) {
             primitivo = criarPrimitivoComDoisCliques(e);
-        } else if (tipo == TipoPrimitivo.TRIANGULO){
+        } else if (tipo == TipoPrimitivo.TRIANGULO) {
             primitivo = criarTriangulo(e);
         }
 
         if (primitivo != null) {
             armazenarEDesenhar(primitivo);
         }
-    }     
+    }
 
     /**
      * Cria retas, circulos ou retangulos a partir de dois cliques.
@@ -277,8 +314,8 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      *
      * @param e valor de e
      */
-    public void mouseReleased(MouseEvent e) { 
-    }           
+    public void mouseReleased(MouseEvent e) {
+    }
 
     /**
      * Trata o evento de mouse mouseClicked.
@@ -318,16 +355,16 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param e dados do evento do mouse
      */
     public void mouseMoved(MouseEvent e) {
-        this.msg.setText("("+e.getX() + ", " + e.getY() + ") - " + getTipo() + " - ED: " + primitivos.getQtdNos());
+        this.msg.setText("(" + e.getX() + ", " + e.getY() + ") - " + getTipo() + " - ED: " + primitivos.getQtdNos());
     }
 
     /**
      * Desenha os primitivos armazenados de acordo com o filtro escolhido.
      *
-     * @param g biblioteca para desenhar em modo grafico
+     * @param g      biblioteca para desenhar em modo grafico
      * @param filtro tipo de primitivo que deve ser desenhado
      */
-    public void desenharPrimitivosArmazenados(Graphics g, TipoPrimitivo filtro){
+    public void desenharPrimitivosArmazenados(Graphics g, TipoPrimitivo filtro) {
         if (filtro == TipoPrimitivo.NENHUM) {
             return;
         }
