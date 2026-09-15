@@ -1,16 +1,20 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import persistencia.PersistenciaJSON;
 import circulo.CirculoGr;
 import eds.listaLigadaSimples.ListaLigadaSimples;
+import persistencia.PersistenciaJSON;
+import ponto.Ponto;
 import ponto.PontoGr;
 import primitivo.PrimitivoGrafico;
 import reta.RetaGr;
@@ -23,7 +27,10 @@ import triangulo.TrianguloGr;
  * @author Kaua Bezerra Brito
  * @version 20260825
  */
-public class PainelDesenho extends JPanel implements MouseListener, MouseMotionListener {
+public class PainelDesenho extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+
+    /** Cor usada para destacar o primitivo selecionado no modo de apagar. */
+    private static final Color COR_DESTAQUE = Color.RED;
 
     /** Label usada para exibir mensagens no rodape. */
     JLabel msg;
@@ -64,6 +71,21 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
     /** Filtro usado pelo combo de redesenho. */
     TipoPrimitivo filtroRedesenho = TipoPrimitivo.NENHUM;
 
+    /** Indica se o modo de selecao para apagar esta ativo. */
+    private boolean modoApagar = false;
+
+    /** Tipo de primitivo sendo navegado no modo de apagar. */
+    private TipoPrimitivo tipoApagar;
+
+    /**
+     * Indices reais (dentro de "primitivos") dos itens do tipo escolhido para
+     * apagar.
+     */
+    private int[] indicesApagar;
+
+    /** Posicao selecionada dentro de indicesApagar. */
+    private int posicaoApagar;
+
     /**
      * Constroi o painel de desenho
      *
@@ -81,6 +103,11 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         // Adiciona "ouvidor" de eventos de mouse
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+
+        // Adiciona "ouvidor" de teclado (usado pelo modo de apagar) e
+        // garante que o painel possa receber foco/eventos de tecla
+        this.setFocusable(true);
+        this.addKeyListener(this);
 
     }
 
@@ -218,6 +245,97 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         } catch (IOException e) {
             msg.setText("Erro ao carregar: " + e.getMessage());
         }
+    }
+
+    /**
+     * Entra no modo de selecao para apagar: percorre a ED e guarda os indices
+     * reais dos primitivos que batem com o tipo escolhido. Navegue com as
+     * setas esquerda/direita, confirme com Enter ou cancele com Esc.
+     *
+     * @param tipo tipo de primitivo a navegar (TODOS navega a ED inteira)
+     */
+    public void iniciarModoApagar(TipoPrimitivo tipo) {
+        if (tipo == null || tipo == TipoPrimitivo.NENHUM) {
+            msg.setText("Escolha um tipo valido no combo de Redesenhar antes de apagar.");
+            return;
+        }
+
+        int[] indicesTemp = new int[primitivos.getQtdNos()];
+        int qtd = 0;
+
+        for (int i = 0; i < primitivos.getQtdNos(); i++) {
+            PrimitivoGrafico p = primitivos.obter(i);
+
+            if (tipo == TipoPrimitivo.TODOS || p.getTipo().equals(tipo.name())) {
+                indicesTemp[qtd] = i;
+                qtd++;
+            }
+        }
+
+        if (qtd == 0) {
+            msg.setText("Nao ha primitivos do tipo " + tipo + " para apagar.");
+            modoApagar = false;
+            return;
+        }
+
+        indicesApagar = Arrays.copyOf(indicesTemp, qtd);
+        posicaoApagar = 0;
+        tipoApagar = tipo;
+        modoApagar = true;
+
+        // mostra so o tipo que esta sendo apagado (o mesmo efeito do combo de
+        // Redesenhar).
+        // se o usuario escolheu TODOS, mantem TODOS visivel mesmo.
+        filtroRedesenho = tipo;
+        requestFocusInWindow();
+        repaint();
+        atualizarMsgApagar();
+    }
+
+    /**
+     * Atualiza a mensagem de rodape com a posicao atual do modo de apagar.
+     */
+    private void atualizarMsgApagar() {
+        msg.setText("Apagar " + tipoApagar + ": item " + (posicaoApagar + 1) + " de " + indicesApagar.length
+                + "  (setas esquerda/direita navegam, Enter apaga, Esc cancela)");
+    }
+
+    /**
+     * Monta uma copia temporaria do primitivo informado, na mesma posicao,
+     * porem com outra cor. Usada so para desenhar o destaque de selecao;
+     * a copia nunca e inserida na ED.
+     *
+     * @param original    primitivo original guardado na ED
+     * @param corDestaque cor a ser usada na copia
+     * @return copia do primitivo com a cor de destaque
+     */
+    private PrimitivoGrafico criarDestaque(PrimitivoGrafico original, Color corDestaque) {
+        if (original.getTipo().equals("PONTO")) {
+            PontoGr p = (PontoGr) original;
+            return new PontoGr((int) p.getX(), (int) p.getY(), corDestaque, p.getDiametro());
+        } else if (original.getTipo().equals("RETA")) {
+            RetaGr r = (RetaGr) original;
+            return new RetaGr((int) r.getP1().getX(), (int) r.getP1().getY(),
+                    (int) r.getP2().getX(), (int) r.getP2().getY(), corDestaque, "", r.getEspReta());
+        } else if (original.getTipo().equals("TRIANGULO")) {
+            TrianguloGr t = (TrianguloGr) original;
+            return new TrianguloGr((int) t.getP1().getX(), (int) t.getP1().getY(),
+                    (int) t.getP2().getX(), (int) t.getP2().getY(),
+                    (int) t.getP3().getX(), (int) t.getP3().getY(), corDestaque, "", t.getEspTriangulo());
+        } else if (original.getTipo().equals("RETANGULO")) {
+            RetanguloGr r = (RetanguloGr) original;
+            return new RetanguloGr((int) r.getP1().getX(), (int) r.getP1().getY(),
+                    (int) r.getP2().getX(), (int) r.getP2().getY(), corDestaque, "", r.getEspRetangulo());
+        } else if (original.getTipo().equals("CIRCULO")) {
+            CirculoGr c = (CirculoGr) original;
+            Ponto centro = c.getCentro();
+            int xBorda = (int) centro.getX() + c.getRaio();
+            int yBorda = (int) centro.getY();
+            return new CirculoGr((int) centro.getX(), (int) centro.getY(), xBorda, yBorda, corDestaque, "",
+                    c.getEspCirculo());
+        }
+
+        return original;
     }
 
     /**
@@ -373,8 +491,65 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
             PrimitivoGrafico primitivo = primitivos.obter(i);
 
             if (filtro == TipoPrimitivo.TODOS || primitivo.getTipo().equals(filtro.name())) {
-                primitivo.desenhar(g);
+                if (modoApagar && i == indicesApagar[posicaoApagar]) {
+                    criarDestaque(primitivo, COR_DESTAQUE).desenhar(g);
+                } else {
+                    primitivo.desenhar(g);
+                }
             }
         }
+    }
+
+    /**
+     * Trata o evento de tecla pressionada. So faz algo quando o modo de
+     * apagar esta ativo: seta esquerda/direita navega, Enter apaga o item
+     * selecionado, Esc cancela a selecao.
+     *
+     * @param e dados do evento de teclado
+     */
+    public void keyPressed(KeyEvent e) {
+        if (!modoApagar) {
+            return;
+        }
+
+        int codigo = e.getKeyCode();
+
+        if (codigo == KeyEvent.VK_LEFT) {
+            posicaoApagar = (posicaoApagar - 1 + indicesApagar.length) % indicesApagar.length;
+            repaint();
+            atualizarMsgApagar();
+        } else if (codigo == KeyEvent.VK_RIGHT) {
+            posicaoApagar = (posicaoApagar + 1) % indicesApagar.length;
+            repaint();
+            atualizarMsgApagar();
+        } else if (codigo == KeyEvent.VK_ENTER) {
+            int indiceReal = indicesApagar[posicaoApagar];
+            primitivos.remover(indiceReal);
+            modoApagar = false;
+            indicesApagar = null;
+            repaint();
+            msg.setText("Primitivo removido. ED: " + primitivos.getQtdNos());
+        } else if (codigo == KeyEvent.VK_ESCAPE) {
+            modoApagar = false;
+            indicesApagar = null;
+            repaint();
+            msg.setText("Selecao para apagar cancelada. ED: " + primitivos.getQtdNos());
+        }
+    }
+
+    /**
+     * Trata o evento de tecla solta (nao usado).
+     *
+     * @param e dados do evento de teclado
+     */
+    public void keyReleased(KeyEvent e) {
+    }
+
+    /**
+     * Trata o evento de tecla digitada (nao usado).
+     *
+     * @param e dados do evento de teclado
+     */
+    public void keyTyped(KeyEvent e) {
     }
 }

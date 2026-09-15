@@ -78,6 +78,9 @@ class Gui extends JFrame {
     /** Texto associado ao combo de redesenho. */
     private JLabel jlRedesenhar = new JLabel("   Redesenhar: ");
 
+    /** Botao para apagar primitivos. */
+    private JButton jbApagar = new JButton("Apagar");
+
     /** Combo que define o tipo de primitivo a ser redesenhado a partir da ED. */
     private JComboBox<TipoPrimitivo> jcRedesenhar = new JComboBox<TipoPrimitivo>(new TipoPrimitivo[] {
             TipoPrimitivo.TODOS,
@@ -126,6 +129,7 @@ class Gui extends JFrame {
         areaDesenho.setEsp(espAtual); // define a espessura inicial
         barraComandos.add(jlRedesenhar);
         barraComandos.add(jcRedesenhar);
+        barraComandos.add(jbApagar);
         barraComandos.add(jbSair); // Botao de Cores
 
         // adiciona os componentes com os respectivos layouts
@@ -181,7 +185,10 @@ class Gui extends JFrame {
             TipoPrimitivo filtro = (TipoPrimitivo) jcRedesenhar.getSelectedItem();
             areaDesenho.redesenharPrimitivos(filtro);
         });
-
+        jbApagar.addActionListener(e -> {
+            TipoPrimitivo tipo = (TipoPrimitivo) jcRedesenhar.getSelectedItem();
+            areaDesenho.iniciarModoApagar(tipo);
+        });
         jbSair.addActionListener(e -> {
             System.exit(0);
         });

@@ -53,6 +53,7 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
 
         /**
          * Retorna o valor de Conteudo.
+         * 
          * @return valor retornado
          */
         public T getConteudo() {
@@ -61,6 +62,7 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
 
         /**
          * Retorna o valor de Proximo.
+         * 
          * @return valor retornado
          */
         public No getProximo() {
@@ -69,6 +71,7 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
 
         /**
          * Retorna a representacao textual do objeto.
+         * 
          * @return valor retornado
          */
         public String toString() {
@@ -96,6 +99,7 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
 
     /**
      * Retorna o valor de Inicio.
+     * 
      * @return valor retornado
      */
     private No getInicio() {
@@ -104,6 +108,7 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
 
     /**
      * Retorna o valor de Fim.
+     * 
      * @return valor retornado
      */
     private No getFim() {
@@ -261,6 +266,33 @@ public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
         }
 
         return atual.getConteudo();
+    }
+
+    /**
+     * Remove um elemento de uma posicao especifica da lista.
+     *
+     * @param indice posicao do elemento a ser removido
+     * @return elemento removido
+     */
+    public T remover(int indice) {
+        if (indice < 0 || indice >= getQtdNos()) {
+            return null;
+        }
+        if (indice == 0) {
+            return removerInicio();
+        }
+        if (indice == getQtdNos() - 1) {
+            return removerFim();
+        }
+        No ant = getInicio();
+        for (int i = 0; i < indice - 1; i++) {
+            ant = ant.getProximo();
+        }
+        No aux = ant.getProximo();
+        ant.setProximo(aux.getProximo());
+        aux.setProximo(null);
+        setQtdNos(getQtdNos() - 1);
+        return aux.getConteudo();
     }
 
     /**
