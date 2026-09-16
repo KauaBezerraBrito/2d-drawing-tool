@@ -28,6 +28,15 @@ Na barra superior, escolha o tipo de primitivo, a cor e a espessura. Depois cliq
 - `Retangulo`: 2 cliques, representando cantos opostos.
 - `Triangulo`: 3 cliques, um para cada vertice.
 
+Marque `Elastico` na barra para ver uma previa seguindo o mouse entre os
+cliques. No triangulo, o primeiro clique inicia uma reta e o segundo inicia
+a previa do triangulo. O ultimo clique confirma a figura e a armazena na lista.
+O ponto continua sendo desenhado com um clique.
+
+Pressione `Esc` na area de desenho para cancelar a figura em andamento.
+Trocar de primitivo ou ligar/desligar `Elastico` tambem cancela essa figura.
+A previa usa a cor e a espessura escolhidas e nao e salva no arquivo JSON.
+
 ## Estrutura de dados
 
 Os primitivos desenhados sao armazenados em uma lista ligada simples implementada no pacote `eds.listaLigadaSimples`.

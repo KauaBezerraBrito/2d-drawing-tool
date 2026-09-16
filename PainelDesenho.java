@@ -65,6 +65,14 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
     /** Quantidade de cliques ja coletados para o primitivo atual. */
     int qtdeCliques = 0;
 
+    /** Ativa a previa que acompanha o mouse entre os cliques. */
+    private boolean modoElastico = false;
+    private int xMouse;
+    private int yMouse;
+
+    /** Novos desenhos ficam visiveis mesmo depois de limpar ou filtrar a tela. */
+    private int inicioNovos = 0;
+
     /** Estrutura de dados que armazena os primitivos desenhados. */
     ListaLigadaSimples<PrimitivoGrafico> primitivos = new ListaLigadaSimples<PrimitivoGrafico>();
 
@@ -119,6 +127,15 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
     public void setTipo(TipoPrimitivo tipo) {
         this.tipo = tipo;
         this.qtdeCliques = 0;
+        repaint();
+    }
+
+    /** Liga ou desliga o modo elastico e cancela o desenho em andamento. */
+    public void setModoElastico(boolean ativo) {
+        modoElastico = ativo;
+        qtdeCliques = 0;
+        requestFocusInWindow();
+        repaint();
     }
 
     /**
@@ -137,6 +154,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     public void setEsp(int esp) {
         this.esp = esp;
+        repaint();
     }
 
     /**
@@ -155,6 +173,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     public void setCorAtual(Color corAtual) {
         this.corAtual = corAtual;
+        repaint();
     }
 
     /**
@@ -192,6 +211,28 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         desenharPrimitivosArmazenados(g, filtroRedesenho);
+        desenharPrevia(g);
+    }
+
+    /** A previa e temporaria: nao entra na lista de primitivos. */
+    private void desenharPrevia(Graphics g) {
+        if (!modoElastico || modoApagar || qtdeCliques == 0) {
+            return;
+        }
+
+        PrimitivoGrafico previa = null;
+        if (tipo == TipoPrimitivo.RETA || (tipo == TipoPrimitivo.TRIANGULO && qtdeCliques == 1)) {
+            previa = new RetaGr(x1, y1, xMouse, yMouse, corAtual, "", esp);
+        } else if (tipo == TipoPrimitivo.CIRCULO) {
+            previa = new CirculoGr(x1, y1, xMouse, yMouse, corAtual, "", esp);
+        } else if (tipo == TipoPrimitivo.RETANGULO) {
+            previa = new RetanguloGr(x1, y1, xMouse, yMouse, corAtual, "", esp);
+        } else if (tipo == TipoPrimitivo.TRIANGULO) {
+            previa = new TrianguloGr(x1, y1, x2, y2, xMouse, yMouse, corAtual, "", esp);
+        }
+        if (previa != null) {
+            previa.desenhar(g);
+        }
     }
 
     /**
@@ -199,6 +240,8 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     public void limparTela() {
         filtroRedesenho = TipoPrimitivo.NENHUM;
+        inicioNovos = primitivos.getQtdNos();
+        modoApagar = false;
         qtdeCliques = 0;
         repaint();
     }
@@ -210,6 +253,9 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     public void redesenharPrimitivos(TipoPrimitivo filtro) {
         filtroRedesenho = filtro;
+        inicioNovos = primitivos.getQtdNos();
+        qtdeCliques = 0;
+        modoApagar = false;
         repaint();
     }
 
@@ -240,6 +286,9 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         try {
             primitivos = PersistenciaJSON.carregar(caminho, getWidth(), getHeight());
             filtroRedesenho = TipoPrimitivo.TODOS;
+            inicioNovos = primitivos.getQtdNos();
+            qtdeCliques = 0;
+            modoApagar = false;
             repaint();
             msg.setText("Desenho carregado de: " + caminho + " - ED: " + primitivos.getQtdNos());
         } catch (IOException e) {
@@ -282,6 +331,8 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         posicaoApagar = 0;
         tipoApagar = tipo;
         modoApagar = true;
+        qtdeCliques = 0;
+        inicioNovos = primitivos.getQtdNos();
 
         // mostra so o tipo que esta sendo apagado (o mesmo efeito do combo de
         // Redesenhar).
@@ -344,6 +395,12 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param e dados do evento
      */
     public void mousePressed(MouseEvent e) {
+        requestFocusInWindow();
+        if (modoApagar) {
+            return;
+        }
+        xMouse = e.getX();
+        yMouse = e.getY();
         PrimitivoGrafico primitivo = null;
 
         if (tipo == TipoPrimitivo.PONTO) {
@@ -357,6 +414,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         if (primitivo != null) {
             armazenarEDesenhar(primitivo);
         }
+        repaint();
     }
 
     /**
@@ -423,8 +481,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     private void armazenarEDesenhar(PrimitivoGrafico primitivo) {
         primitivos.inserirFim(primitivo);
-        filtroRedesenho = TipoPrimitivo.NENHUM;
-        primitivo.desenhar(getGraphics());
+        repaint();
     }
 
     /**
@@ -465,6 +522,7 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param e valor de e
      */
     public void mouseDragged(MouseEvent e) {
+        mouseMoved(e);
     }
 
     /**
@@ -473,6 +531,14 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param e dados do evento do mouse
      */
     public void mouseMoved(MouseEvent e) {
+        if (modoApagar) {
+            return;
+        }
+        xMouse = e.getX();
+        yMouse = e.getY();
+        if (modoElastico && qtdeCliques > 0) {
+            repaint();
+        }
         this.msg.setText("(" + e.getX() + ", " + e.getY() + ") - " + getTipo() + " - ED: " + primitivos.getQtdNos());
     }
 
@@ -483,14 +549,10 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      * @param filtro tipo de primitivo que deve ser desenhado
      */
     public void desenharPrimitivosArmazenados(Graphics g, TipoPrimitivo filtro) {
-        if (filtro == TipoPrimitivo.NENHUM) {
-            return;
-        }
-
         for (int i = 0; i < primitivos.getQtdNos(); i++) {
             PrimitivoGrafico primitivo = primitivos.obter(i);
 
-            if (filtro == TipoPrimitivo.TODOS || primitivo.getTipo().equals(filtro.name())) {
+            if (i >= inicioNovos || filtro == TipoPrimitivo.TODOS || primitivo.getTipo().equals(filtro.name())) {
                 if (modoApagar && i == indicesApagar[posicaoApagar]) {
                     criarDestaque(primitivo, COR_DESTAQUE).desenhar(g);
                 } else {
@@ -509,6 +571,11 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
      */
     public void keyPressed(KeyEvent e) {
         if (!modoApagar) {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                qtdeCliques = 0;
+                repaint();
+                msg.setText("Desenho em andamento cancelado.");
+            }
             return;
         }
 
@@ -525,6 +592,9 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
         } else if (codigo == KeyEvent.VK_ENTER) {
             int indiceReal = indicesApagar[posicaoApagar];
             primitivos.remover(indiceReal);
+            if (indiceReal < inicioNovos) {
+                inicioNovos--;
+            }
             modoApagar = false;
             indicesApagar = null;
             repaint();
