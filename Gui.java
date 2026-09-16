@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JColorChooser;
@@ -28,7 +29,7 @@ class Gui extends JFrame {
     private Color corAtual = Color.BLACK;
 
     /** Espessura atual usada nos novos primitivos. */
-    private int espAtual = 1;
+    private int espAtual = 2;
 
     /** Barra de ferramentas com os comandos da aplicacao. */
     private JToolBar barraComandos = new JToolBar();
@@ -37,7 +38,7 @@ class Gui extends JFrame {
     private JLabel msg = new JLabel("Msg: ");
 
     /** Area central responsavel pelo desenho dos primitivos. */
-    private PainelDesenho areaDesenho = new PainelDesenho(msg, tipoAtual, corAtual, 10);
+    private PainelDesenho areaDesenho = new PainelDesenho(msg, tipoAtual, corAtual, espAtual);
 
     /** Botao para selecionar o primitivo ponto. */
     private JButton jbPonto = new JButton("Ponto");
@@ -53,6 +54,9 @@ class Gui extends JFrame {
 
     /** Botao para selecionar o primitivo triangulo. */
     private JButton jbTriangulo = new JButton("Triangulo");
+
+    /** Opcao para mostrar a previa entre os cliques. */
+    private JCheckBox jcElastico = new JCheckBox("Elastico");
 
     /** Botao para limpar somente a tela. */
     private JButton jbLimpar = new JButton("Limpar");
@@ -92,10 +96,10 @@ class Gui extends JFrame {
     });
 
     /** Texto que mostra a espessura atual. */
-    private JLabel jlEsp = new JLabel("   Espessura: " + String.format("%-5s", 1));
+    private JLabel jlEsp = new JLabel("   Espessura: " + String.format("%-5s", espAtual));
 
     /** Slider usado para escolher a espessura dos primitivos. */
-    private JSlider jsEsp = new JSlider(1, 50, 1);
+    private JSlider jsEsp = new JSlider(1, 50, espAtual);
 
     /**
      * Constroi a GUI
@@ -126,6 +130,7 @@ class Gui extends JFrame {
 
         barraComandos.add(jlEsp); // Label para espessura
         barraComandos.add(jsEsp); // Slider para espacamento
+        barraComandos.add(jcElastico);
         areaDesenho.setEsp(espAtual); // define a espessura inicial
         barraComandos.add(jlRedesenhar);
         barraComandos.add(jcRedesenhar);
@@ -142,6 +147,9 @@ class Gui extends JFrame {
         jbPonto.addActionListener(e -> {
             tipoAtual = TipoPrimitivo.PONTO;
             areaDesenho.setTipo(tipoAtual);
+        });
+        jcElastico.addActionListener(e -> {
+            areaDesenho.setModoElastico(jcElastico.isSelected());
         });
         jbReta.addActionListener(e -> {
             tipoAtual = TipoPrimitivo.RETA;
@@ -161,7 +169,7 @@ class Gui extends JFrame {
         });
         jbLimpar.addActionListener(e -> {
             areaDesenho.limparTela();
-            jsEsp.setValue(1); // inicia slider
+            jsEsp.setValue(2); // volta para a espessura inicial
         });
         jbSalvar.addActionListener(e -> {
             salvarComDialogo();
