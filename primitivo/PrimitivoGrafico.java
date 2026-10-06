@@ -5,8 +5,9 @@ import java.awt.Graphics;
 /**
  * Define o comportamento comum dos primitivos graficos armazenados na ED.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public interface PrimitivoGrafico {
     /**

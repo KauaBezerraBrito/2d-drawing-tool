@@ -1,4 +1,5 @@
 package reta;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -8,67 +9,66 @@ import primitivo.PrimitivoGrafico;
 /**
  * Implementacao da classe reta grafica.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class RetaGr extends Reta implements PrimitivoGrafico {
-    // Atributos da reta grafica
-    Color corReta = Color.BLACK;   // cor da reta
+    Color corReta = Color.BLACK; // cor da reta
     String nomeReta = ""; // nome da reta
-    /** Armazena corNomeReta da classe. */
-    Color corNomeReta  = Color.BLACK;
+    Color corNomeReta = Color.BLACK;
     int espReta = 1; // espessura da reta
 
     // Construtores
     /**
      * RetaGr - Constroi uma reta grafica
      *
-     * @param x1 int. Coordenada x1
-     * @param y1 int. Coordenada y1
-     * @param x2 int. Coordenada x2
-     * @param y2 int. Coordenada y2
-     * @param cor Color. Cor da reta
+     * @param x1   int. Coordenada x1
+     * @param y1   int. Coordenada y1
+     * @param x2   int. Coordenada x2
+     * @param y2   int. Coordenada y2
+     * @param cor  Color. Cor da reta
      * @param nome String. Nome da reta
-     * @param esp int. Espessura da reta
+     * @param esp  int. Espessura da reta
      */
-    public RetaGr(int x1, int y1, int x2, int y2, Color cor, String nome, int esp){
-        super (x1, y1, x2, y2);
+    public RetaGr(int x1, int y1, int x2, int y2, Color cor, String nome, int esp) {
+        super(x1, y1, x2, y2);
         setCorReta(cor);
         setNomeReta(nome);
         setEspReta(esp);
-    }    
+    }
 
     /**
      * RetaGr - Constroi uma reta grafica
      *
-     * @param x1 int. Coordenada x1
-     * @param y1 int. Coordenada y1
-     * @param x2 int. Coordenada x2
-     * @param y2 int. Coordenada y2
+     * @param x1  int. Coordenada x1
+     * @param y1  int. Coordenada y1
+     * @param x2  int. Coordenada x2
+     * @param y2  int. Coordenada y2
      * @param cor Color. Cor da reta
      */
-    public RetaGr(int x1, int y1, int x2, int y2, Color cor){
-        super (x1, y1, x2, y2);
+    public RetaGr(int x1, int y1, int x2, int y2, Color cor) {
+        super(x1, y1, x2, y2);
         setCorReta(cor);
         setNomeReta("");
-    }   
+    }
 
     /**
      * RetaGr - Constroi uma reta grafica
      *
-     * @param x1 int. Coordenada x1
-     * @param y1 int. Coordenada y1
-     * @param x2 int. Coordenada x2
-     * @param y2 int. Coordenada y2
+     * @param x1  int. Coordenada x1
+     * @param y1  int. Coordenada y1
+     * @param x2  int. Coordenada x2
+     * @param y2  int. Coordenada y2
      * @param cor Color. Cor da reta
      * @param esp int. Espessura da reta
      */
-    public RetaGr(int x1, int y1, int x2, int y2, Color cor, int esp){
-        super (x1, y1, x2, y2);
+    public RetaGr(int x1, int y1, int x2, int y2, Color cor, int esp) {
+        super(x1, y1, x2, y2);
         setCorReta(cor);
         setNomeReta("");
         setEspReta(esp);
-    }   
+    }
 
     /**
      * RetaGr - Constroi uma reta grafica
@@ -78,11 +78,11 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
      * @param x2 int. Coordenada x2
      * @param y2 int. Coordenada y2
      */
-    public RetaGr(int x1, int y1, int x2, int y2){
-        super (x1, y1, x2, y2);
+    public RetaGr(int x1, int y1, int x2, int y2) {
+        super(x1, y1, x2, y2);
         setCorReta(Color.black);
         setNomeReta("");
-    }   
+    }
 
     /**
      * RetaGr - Constroi uma reta grafica
@@ -90,38 +90,38 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
      * @param p1 PontoGr. Ponto grafico p1 (x1, y1)
      * @param p2 PontoGr. Ponto grafico p2 (x2, y2)
      */
-    public RetaGr(PontoGr p1, PontoGr p2){
+    public RetaGr(PontoGr p1, PontoGr p2) {
         super(p1, p2);
         setCorReta(Color.black);
         setNomeReta("");
-    }    
+    }
 
     /**
      * RetaGr - Constroi uma reta grafica
      *
-     * @param p1 PontoGr. Ponto grafico p1 (x1, y1)
-     * @param p2 PontoGr. Ponto grafico p2 (x2, y2)
+     * @param p1  PontoGr. Ponto grafico p1 (x1, y1)
+     * @param p2  PontoGr. Ponto grafico p2 (x2, y2)
      * @param cor Color. Cor da reta
      */
-    public RetaGr(PontoGr p1, PontoGr p2, Color cor){
+    public RetaGr(PontoGr p1, PontoGr p2, Color cor) {
         super(p1, p2);
         setCorReta(cor);
         setNomeReta("");
-    }    
+    }
 
     /**
      * RetaGr - Constroi uma reta grafica
      *
-     * @param p1 PontoGr. Ponto grafico p1 (x1, y1)
-     * @param p2 PontoGr. Ponto grafico p2 (x2, y2)
-     * @param cor Color. Cor da reta
+     * @param p1   PontoGr. Ponto grafico p1 (x1, y1)
+     * @param p2   PontoGr. Ponto grafico p2 (x2, y2)
+     * @param cor  Color. Cor da reta
      * @param nome String. Nome da reta
      */
-    public RetaGr(PontoGr p1, PontoGr p2, Color cor, String str){
+    public RetaGr(PontoGr p1, PontoGr p2, Color cor, String str) {
         super(p1, p2);
         setCorReta(cor);
         setNomeReta(str);
-    }    
+    }
 
     /**
      * Altera a cor da reta.
@@ -156,7 +156,7 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
      * @return int. Espessura da reta.
      */
     public int getEspReta() {
-        return(this.espReta);
+        return (this.espReta);
     }
 
     /**
@@ -196,37 +196,37 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
      *
      * @param g Graphics. Classe com os metodos graficos do Java
      */
-    public void desenharReta(Graphics g){
+    public void desenharReta(Graphics g) {
 
         // calcula m e b da equacao da reta y = mx + b
         double m = calcularM();
         double b = calcularB();
 
         // Variaveis auxiliares
-        PontoGr ponto; 
+        PontoGr ponto;
         double x, y;
 
         double cIni, cFim;
 
         // desenha nome do ponto
         g.setColor(getCorNomeReta());
-        g.drawString(getNomeReta(), (int)getP1().getX() + getEspReta(), (int)getP1().getY());
+        g.drawString(getNomeReta(), (int) getP1().getX() + getEspReta(), (int) getP1().getY());
 
-        if(p1.getX() == p2.getX()) { // reta vertical
-            if (p1.getY() < p2.getY()){ // Caso 1: y1 < y2
+        if (p1.getX() == p2.getX()) { // reta vertical
+            if (p1.getY() < p2.getY()) { // Caso 1: y1 < y2
                 cIni = p1.getY();
                 cFim = p2.getY();
             } else { // Caso 2: y1 > y2
                 cIni = p2.getY();
-                cFim = p1.getY();            
+                cFim = p1.getY();
             }
-            // percorre de y1 ate y2. 
-            for(y = cIni; y <= cFim; y++){ 
+            // percorre de y1 ate y2.
+            for (y = cIni; y <= cFim; y++) {
                 // x1 e x2 s�o iguais
                 x = p1.getX(); // ou x = p2.getX()
 
                 // Define ponto grafico
-                ponto = new PontoGr((int)x, (int)y, getCorReta(), getEspReta());
+                ponto = new PontoGr((int) x, (int) y, getCorReta(), getEspReta());
 
                 // Desenha ponto grafico
                 ponto.desenharPonto(g);
@@ -234,22 +234,22 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
 
         } else { // outras retas
 
-            if (p1.getX() < p2.getX()){ // Caso 1: x1 < x2
+            if (p1.getX() < p2.getX()) { // Caso 1: x1 < x2
                 cIni = p1.getX();
                 cFim = p2.getX();
             } else { // Caso 2: x1 > x2
                 cIni = p2.getX();
-                cFim = p1.getX();            
+                cFim = p1.getX();
             }
 
-            // percorre de x1 ate x2. 
+            // percorre de x1 ate x2.
             // y e� calculado pela equacao: y = mx + b
-            for(x = cIni; x <= cFim; x++){ 
+            for (x = cIni; x <= cFim; x++) {
                 // Calculo de y pela equacao da reta
-                y = (m*x + b);
+                y = (m * x + b);
 
                 // Define ponto grafico
-                ponto = new PontoGr((int)x, (int)y, getCorReta(), getEspReta());
+                ponto = new PontoGr((int) x, (int) y, getCorReta(), getEspReta());
 
                 // Desenha ponto grafico
                 ponto.desenharPonto(g);
@@ -259,33 +259,39 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
 
     /**
      * Desenha reta utilizando o algoritmo de MidPoint (Bresenham)
+     * 
      * @param g
      */
-    void desenharRetaMp(Graphics g){
+    void desenharRetaMp(Graphics g) {
 
-        int x1 = (int)getP1().getX(), x2 = (int)getP2().getX();
-        int y1 = (int)getP1().getY(), y2 = (int)getP2().getY();
+        int x1 = (int) getP1().getX(), x2 = (int) getP2().getX();
+        int y1 = (int) getP1().getY(), y2 = (int) getP2().getY();
 
-        int dx = x2-x1;
-        int dy = y2-y1;
+        int dx = x2 - x1;
+        int dy = y2 - y1;
 
         int i, e;
         int incx, incy, inc1, inc2;
-        int x,y;
+        int x, y;
 
-        if (dx < 0) dx = -dx;
-        if (dy < 0) dy = -dy;
+        if (dx < 0)
+            dx = -dx;
+        if (dy < 0)
+            dy = -dy;
         incx = 1;
-        if (x2 < x1) incx = -1;
+        if (x2 < x1)
+            incx = -1;
         incy = 1;
-        if (y2 < y1) incy = -1;
-        x = x1; y = y1;
+        if (y2 < y1)
+            incy = -1;
+        x = x1;
+        y = y1;
 
-        PontoGr ponto = new PontoGr(); 
+        PontoGr ponto = new PontoGr();
 
         // desenha nome da reta
         g.setColor(getCorNomeReta());
-        g.drawString(getNomeReta(), (int)getP1().getX() + getEspReta(), (int)getP1().getY());
+        g.drawString(getNomeReta(), (int) getP1().getX() + getEspReta(), (int) getP1().getY());
 
         if (dx > dy) {
             ponto.setX(x);
@@ -293,15 +299,14 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
             ponto.setCorPto(getCorReta());
             ponto.setDiametro(getEspReta());
             ponto.desenharPonto(g);
-            e = 2 * dy-dx;
-            inc1 = 2*(dy-dx);
-            inc2 = 2*dy;
-            for (i=0; i<dx; i++) {
+            e = 2 * dy - dx;
+            inc1 = 2 * (dy - dx);
+            inc2 = 2 * dy;
+            for (i = 0; i < dx; i++) {
                 if (e >= 0) {
                     y += incy;
                     e += inc1;
-                }
-                else
+                } else
                     e += inc2;
                 x += incx;
                 ponto.setX(x);
@@ -315,15 +320,14 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
             ponto.setX(x);
             ponto.setY(y);
             ponto.desenharPonto(g);
-            e = 2*dx-dy;
-            inc1 = 2*(dx-dy);
-            inc2 = 2*dx;
-            for (i=0; i<dy; i++) {
+            e = 2 * dx - dy;
+            inc1 = 2 * (dx - dy);
+            inc2 = 2 * dx;
+            for (i = 0; i < dy; i++) {
                 if (e >= 0) {
                     x += incx;
                     e += inc1;
-                }
-                else
+                } else
                     e += inc2;
                 y += incy;
                 ponto.setX(x);
@@ -334,6 +338,7 @@ public class RetaGr extends Reta implements PrimitivoGrafico {
             }
         }
     }
+
     /**
      * Desenha a reta armazenada na ED.
      *

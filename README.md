@@ -2,9 +2,13 @@
 
 Projeto academico desenvolvido em Java/BlueJ para a disciplina de Computacao Grafica e Processamento de Imagens.
 
-## Autor
+## Autores
 
+Heitor de Sousa Cavalcanti
 Kaua Bezerra Brito
+Marcelo Liao
+Rodrigo Ward Leite
+
 
 ## Objetivo
 
@@ -73,3 +77,18 @@ Para compilar pelo terminal:
 ```bash
 javac -encoding windows-1252 App.java
 ```
+
+
+## Espelhamento
+
+O botao `Espelhar` ativa o modo de espelhamento:
+
+1. Clique sobre o primitivo que deseja selecionar.
+2. Clique no primeiro ponto da reta de espelhamento.
+3. Clique no segundo ponto da reta.
+4. O primitivo refletido e criado e incluido na ED.
+5. Pressione `Esc` para cancelar o modo.
+
+A reta pode ter qualquer inclinacao. Para retangulos refletidos em uma reta inclinada,
+o projeto usa internamente um quadrilatero para preservar os quatro vertices da figura,
+sem reduzir o resultado a um retangulo alinhado aos eixos.

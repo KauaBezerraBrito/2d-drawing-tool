@@ -9,29 +9,26 @@ import reta.RetaGr;
 /**
  * Representacao grafica de um retangulo.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
-    /** Armazena corRetangulo da classe. */
     private Color corRetangulo = Color.BLACK;
-    /** Armazena nomeRetangulo da classe. */
     private String nomeRetangulo = "";
-    /** Armazena corNomeRetangulo da classe. */
     private Color corNomeRetangulo = Color.BLACK;
-    /** Armazena espRetangulo da classe. */
     private int espRetangulo = 1;
 
     /**
      * Constroi um objeto da classe RetanguloGr.
      *
-     * @param x1 valor de x1
-     * @param y1 valor de y1
-     * @param x2 valor de x2
-     * @param y2 valor de y2
-     * @param cor valor de cor
+     * @param x1   valor de x1
+     * @param y1   valor de y1
+     * @param x2   valor de x2
+     * @param y2   valor de y2
+     * @param cor  valor de cor
      * @param nome valor de nome
-     * @param esp valor de esp
+     * @param esp  valor de esp
      */
     public RetanguloGr(int x1, int y1, int x2, int y2, Color cor, String nome, int esp) {
         super(x1, y1, x2, y2);
@@ -42,6 +39,7 @@ public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de CorRetangulo.
+     * 
      * @return valor retornado
      */
     public Color getCorRetangulo() {
@@ -59,6 +57,7 @@ public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de NomeRetangulo.
+     * 
      * @return valor retornado
      */
     public String getNomeRetangulo() {
@@ -76,6 +75,7 @@ public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de CorNomeRetangulo.
+     * 
      * @return valor retornado
      */
     public Color getCorNomeRetangulo() {
@@ -93,6 +93,7 @@ public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de EspRetangulo.
+     * 
      * @return valor retornado
      */
     public int getEspRetangulo() {
@@ -139,6 +140,7 @@ public class RetanguloGr extends Retangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de Tipo.
+     * 
      * @return valor retornado
      */
     public String getTipo() {

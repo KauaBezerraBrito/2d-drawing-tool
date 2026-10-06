@@ -5,13 +5,12 @@ import ponto.Ponto;
 /**
  * Representacao matematica de um retangulo.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class Retangulo {
-    /** Armazena p1 da classe. */
     private Ponto p1;
-    /** Armazena p2 da classe. */
     private Ponto p2;
 
     /**
@@ -29,6 +28,7 @@ public class Retangulo {
 
     /**
      * Retorna o valor de P1.
+     * 
      * @return valor retornado
      */
     public Ponto getP1() {
@@ -46,6 +46,7 @@ public class Retangulo {
 
     /**
      * Retorna o valor de P2.
+     * 
      * @return valor retornado
      */
     public Ponto getP2() {
@@ -63,38 +64,43 @@ public class Retangulo {
 
     /**
      * Retorna o valor de XMin.
+     * 
      * @return valor retornado
      */
     public int getXMin() {
-        return (int)Math.min(getP1().getX(), getP2().getX());
+        return (int) Math.min(getP1().getX(), getP2().getX());
     }
 
     /**
      * Retorna o valor de YMin.
+     * 
      * @return valor retornado
      */
     public int getYMin() {
-        return (int)Math.min(getP1().getY(), getP2().getY());
+        return (int) Math.min(getP1().getY(), getP2().getY());
     }
 
     /**
      * Retorna o valor de XMax.
+     * 
      * @return valor retornado
      */
     public int getXMax() {
-        return (int)Math.max(getP1().getX(), getP2().getX());
+        return (int) Math.max(getP1().getX(), getP2().getX());
     }
 
     /**
      * Retorna o valor de YMax.
+     * 
      * @return valor retornado
      */
     public int getYMax() {
-        return (int)Math.max(getP1().getY(), getP2().getY());
+        return (int) Math.max(getP1().getY(), getP2().getY());
     }
 
     /**
      * Retorna a representacao textual do objeto.
+     * 
      * @return valor retornado
      */
     public String toString() {

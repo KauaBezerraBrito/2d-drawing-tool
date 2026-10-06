@@ -1,9 +1,9 @@
 /**
- * Aplicacao para testar primitivos graficos.
- * - inclusao do algoritmo "midpoint" para reta
+ * Aplicacao do painel de desenho
  * 
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class App {
     /**

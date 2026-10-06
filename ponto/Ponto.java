@@ -1,16 +1,16 @@
 package ponto;
- 
+
 /**
  * Representacao de ponto matematico
  * 
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class Ponto {
-    /** Armazena x da classe. */
     private double x;
-    /** Armazena y da classe. */
     private double y;
+
     /**
      * Constroi um ponto em 0,0
      */
@@ -28,31 +28,36 @@ public class Ponto {
         setX(p.getX());
         setY(p.getY());
     }
+
     /**
      * Constroi um ponto com as coordenadas x e y (parametros)
-     * @param x coordenada x do ponto 
+     * 
+     * @param x coordenada x do ponto
      * @param y coordenada y do ponto
      */
     public Ponto(double x, double y) {
         setX(x);
         setY(y);
     }
-    
-    
+
     /**
      * Retorna a coordenada x
+     * 
      * @return coordenada x
      */
     public double getX() {
         return x;
     }
+
     /**
      * Altera a coordenada x de acordo com o valor do parametro x
+     * 
      * @param x coordenada x externo
      */
     public void setX(double x) {
         this.x = x;
     }
+
     /**
      * Retorna a coordenada y
      * 
@@ -61,14 +66,16 @@ public class Ponto {
     public double getY() {
         return y;
     }
+
     /**
      * Altera a coordenada y de acordo com o valor do parametro y
-     * @param y coordenada y externo 
+     * 
+     * @param y coordenada y externo
      */
     public void setY(double y) {
         this.y = y;
     }
-    
+
     /**
      * Calcula a distancia entre o ponto que vem como parametro
      * 
@@ -78,25 +85,19 @@ public class Ponto {
      * 
      */
     public double calcularDistancia(Ponto p) {
-        
-        double d = Math.sqrt(Math.pow(p.getY()-getY(), 2) + Math.pow(p.getX()-getX(), 2));
-        
-        return(d);
-    
+
+        double d = Math.sqrt(Math.pow(p.getY() - getY(), 2) + Math.pow(p.getX() - getX(), 2));
+
+        return (d);
+
     }
 
-    
-    /**
-     * M�todo sobrecarregado que imprime um ponto no formato [x, y]
-     *
-     * @return string representando o ponto
-     */
-    @Override
     /**
      * Retorna a representacao textual do objeto.
+     * 
      * @return valor retornado
      */
     public String toString() {
-        return "Ponto [" + getX() + ", " + getY() +  "]";
+        return "Ponto [" + getX() + ", " + getY() + "]";
     }
 }

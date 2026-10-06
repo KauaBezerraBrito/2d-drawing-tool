@@ -18,8 +18,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  * Cria a interface com o usuario (GUI)
  * 
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 class Gui extends JFrame {
     /** Tipo atual de primitivo selecionado pelo usuario. */
@@ -76,6 +77,9 @@ class Gui extends JFrame {
     /** Botao para alterar a cor atual. */
     private JButton jbCor = new JButton("Cor");
 
+    /** Botao para espelhar um primitivo em relacao a uma reta qualquer. */
+    private JButton jbEspelhar = new JButton("Espelhar");
+
     /** Botao para encerrar a aplicacao. */
     private JButton jbSair = new JButton("Sair");
 
@@ -127,6 +131,7 @@ class Gui extends JFrame {
         barraComandos.add(jbSalvar); // Botao de Salvar
         barraComandos.add(jbCarregar); // Botao de Carregar
         barraComandos.add(jbCor); // Botao de Cores
+        barraComandos.add(jbEspelhar); // Espelhamento
 
         barraComandos.add(jlEsp); // Label para espessura
         barraComandos.add(jsEsp); // Slider para espacamento
@@ -177,6 +182,9 @@ class Gui extends JFrame {
         jbCarregar.addActionListener(e -> {
             carregarComDialogo();
         });
+        jbEspelhar.addActionListener(e -> {
+            areaDesenho.iniciarModoEspelhamento();
+        });
         jbCor.addActionListener(e -> {
             Color c = JColorChooser.showDialog(null, "Escolha uma cor", msg.getForeground());
             if (c != null) {
@@ -194,8 +202,7 @@ class Gui extends JFrame {
             areaDesenho.redesenharPrimitivos(filtro);
         });
         jbApagar.addActionListener(e -> {
-            TipoPrimitivo tipo = (TipoPrimitivo) jcRedesenhar.getSelectedItem();
-            areaDesenho.iniciarModoApagar(tipo);
+            areaDesenho.iniciarModoApagar();
         });
         jbSair.addActionListener(e -> {
             System.exit(0);

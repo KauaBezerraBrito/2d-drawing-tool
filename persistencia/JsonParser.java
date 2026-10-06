@@ -14,8 +14,9 @@ import java.util.Map;
  * - true / false vira um Boolean
  * - null vira null
  *
- * @author Heitor Cavalcanti
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class JsonParser {
     private final String texto;

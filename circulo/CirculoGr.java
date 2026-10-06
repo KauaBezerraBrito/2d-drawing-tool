@@ -9,17 +9,14 @@ import primitivo.PrimitivoGrafico;
 /**
  * Representacao grafica de um circulo.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class CirculoGr extends Circulo implements PrimitivoGrafico {
-    /** Armazena corCirculo da classe. */
     private Color corCirculo = Color.BLACK;
-    /** Armazena nomeCirculo da classe. */
     private String nomeCirculo = "";
-    /** Armazena corNomeCirculo da classe. */
     private Color corNomeCirculo = Color.BLACK;
-    /** Armazena espCirculo da classe. */
     private int espCirculo = 1;
 
     /**
@@ -27,11 +24,11 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
      *
      * @param xCentro valor de xCentro
      * @param yCentro valor de yCentro
-     * @param xBorda valor de xBorda
-     * @param yBorda valor de yBorda
-     * @param cor valor de cor
-     * @param nome valor de nome
-     * @param esp valor de esp
+     * @param xBorda  valor de xBorda
+     * @param yBorda  valor de yBorda
+     * @param cor     valor de cor
+     * @param nome    valor de nome
+     * @param esp     valor de esp
      */
     public CirculoGr(int xCentro, int yCentro, int xBorda, int yBorda, Color cor, String nome, int esp) {
         super(xCentro, yCentro, xBorda, yBorda);
@@ -42,6 +39,7 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de CorCirculo.
+     * 
      * @return valor retornado
      */
     public Color getCorCirculo() {
@@ -59,6 +57,7 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de NomeCirculo.
+     * 
      * @return valor retornado
      */
     public String getNomeCirculo() {
@@ -76,6 +75,7 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de CorNomeCirculo.
+     * 
      * @return valor retornado
      */
     public Color getCorNomeCirculo() {
@@ -93,6 +93,7 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de EspCirculo.
+     * 
      * @return valor retornado
      */
     public int getEspCirculo() {
@@ -114,8 +115,8 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
      * @param g contexto grafico
      */
     public void desenharCirculo(Graphics g) {
-        int xCentro = (int)getCentro().getX();
-        int yCentro = (int)getCentro().getY();
+        int xCentro = (int) getCentro().getX();
+        int yCentro = (int) getCentro().getY();
         int raio = getRaio();
         int x = 0;
         int y = raio;
@@ -143,11 +144,11 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
     /**
      * Desenha os pontos simetricos do circulo.
      *
-     * @param g valor de g
+     * @param g       valor de g
      * @param xCentro valor de xCentro
      * @param yCentro valor de yCentro
-     * @param x valor de x
-     * @param y valor de y
+     * @param x       valor de x
+     * @param y       valor de y
      */
     private void desenharPontosSimetricos(Graphics g, int xCentro, int yCentro, int x, int y) {
         desenharPonto(g, xCentro + x, yCentro + y);
@@ -183,6 +184,7 @@ public class CirculoGr extends Circulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de Tipo.
+     * 
      * @return valor retornado
      */
     public String getTipo() {

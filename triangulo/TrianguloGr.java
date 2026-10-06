@@ -9,31 +9,28 @@ import reta.RetaGr;
 /**
  * Representacao grafica de um triangulo.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
-    /** Armazena corTriangulo da classe. */
     private Color corTriangulo = Color.BLACK;
-    /** Armazena nomeTriangulo da classe. */
     private String nomeTriangulo = "";
-    /** Armazena corNomeTriangulo da classe. */
     private Color corNomeTriangulo = Color.BLACK;
-    /** Armazena espTriangulo da classe. */
     private int espTriangulo = 1;
 
     /**
      * Constroi um objeto da classe TrianguloGr.
      *
-     * @param x1 valor de x1
-     * @param y1 valor de y1
-     * @param x2 valor de x2
-     * @param y2 valor de y2
-     * @param x3 valor de x3
-     * @param y3 valor de y3
-     * @param cor valor de cor
+     * @param x1   valor de x1
+     * @param y1   valor de y1
+     * @param x2   valor de x2
+     * @param y2   valor de y2
+     * @param x3   valor de x3
+     * @param y3   valor de y3
+     * @param cor  valor de cor
      * @param nome valor de nome
-     * @param esp valor de esp
+     * @param esp  valor de esp
      */
     public TrianguloGr(int x1, int y1, int x2, int y2, int x3, int y3, Color cor, String nome, int esp) {
         super(x1, y1, x2, y2, x3, y3);
@@ -44,6 +41,7 @@ public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de CorTriangulo.
+     * 
      * @return valor retornado
      */
     public Color getCorTriangulo() {
@@ -61,6 +59,7 @@ public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de NomeTriangulo.
+     * 
      * @return valor retornado
      */
     public String getNomeTriangulo() {
@@ -78,6 +77,7 @@ public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de CorNomeTriangulo.
+     * 
      * @return valor retornado
      */
     public Color getCorNomeTriangulo() {
@@ -95,6 +95,7 @@ public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de EspTriangulo.
+     * 
      * @return valor retornado
      */
     public int getEspTriangulo() {
@@ -116,12 +117,12 @@ public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
      * @param g contexto grafico
      */
     public void desenharTriangulo(Graphics g) {
-        int x1 = (int)getP1().getX();
-        int y1 = (int)getP1().getY();
-        int x2 = (int)getP2().getX();
-        int y2 = (int)getP2().getY();
-        int x3 = (int)getP3().getX();
-        int y3 = (int)getP3().getY();
+        int x1 = (int) getP1().getX();
+        int y1 = (int) getP1().getY();
+        int x2 = (int) getP2().getX();
+        int y2 = (int) getP2().getY();
+        int x3 = (int) getP3().getX();
+        int y3 = (int) getP3().getY();
 
         new RetaGr(x1, y1, x2, y2, getCorTriangulo(), "", getEspTriangulo()).desenhar(g);
         new RetaGr(x2, y2, x3, y3, getCorTriangulo(), "", getEspTriangulo()).desenhar(g);
@@ -142,6 +143,7 @@ public class TrianguloGr extends Triangulo implements PrimitivoGrafico {
 
     /**
      * Retorna o valor de Tipo.
+     * 
      * @return valor retornado
      */
     public String getTipo() {

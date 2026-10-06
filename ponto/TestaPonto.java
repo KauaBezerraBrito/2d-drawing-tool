@@ -1,12 +1,13 @@
 package ponto;
 
 /**
- * Write a description of class TestaPonto here.
+ * Testa a classe Ponto.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
-public class TestaPonto{
+public class TestaPonto {
     /**
      * Inicia a execucao da classe.
      *

@@ -21,13 +21,15 @@ import ponto.PontoGr;
 import primitivo.PrimitivoGrafico;
 import reta.RetaGr;
 import retangulo.RetanguloGr;
+import retangulo.QuadrilateroGr;
 import triangulo.TrianguloGr;
 
 /**
  * Salva e carrega os primitivos graficos em um arquivo JSON.
  *
- * @author Heitor Cavalcanti
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class PersistenciaJSON {
     private PersistenciaJSON() {
@@ -171,6 +173,17 @@ public class PersistenciaJSON {
      * @return texto JSON do item
      */
     private static String jsonRetangulo(RetanguloGr rg, int largura, int altura, String id) {
+        if (rg instanceof QuadrilateroGr) {
+            QuadrilateroGr q = (QuadrilateroGr) rg;
+            return "{ \"p1\": " + jsonPontoTexto(q.getP1(), largura, altura)
+                    + ", \"p2\": " + jsonPontoTexto(q.getP2(), largura, altura)
+                    + ", \"p3\": " + jsonPontoTexto(q.getP3(), largura, altura)
+                    + ", \"p4\": " + jsonPontoTexto(q.getP4(), largura, altura)
+                    + ", \"cor\": " + jsonCor(q.getCorRetangulo())
+                    + ", \"esp\": " + q.getEspRetangulo()
+                    + ", \"id\": \"" + id + "\" }";
+        }
+
         return "{ \"p1\": " + jsonPontoTexto(rg.getP1(), largura, altura)
                 + ", \"p2\": " + jsonPontoTexto(rg.getP2(), largura, altura)
                 + ", \"cor\": " + jsonCor(rg.getCorRetangulo())
@@ -424,7 +437,18 @@ public class PersistenciaJSON {
             Color cor = lerCor(obj.get("cor"));
             int esp = (int) numero(obj.get("esp"));
 
-            primitivos.inserirFim(new RetanguloGr(p1[0], p1[1], p2[0], p2[1], cor, "", esp));
+            if (obj.containsKey("p3") && obj.containsKey("p4")) {
+                int[] p3 = lerPontoPixel(obj.get("p3"), largura, altura);
+                int[] p4 = lerPontoPixel(obj.get("p4"), largura, altura);
+                primitivos.inserirFim(new QuadrilateroGr(
+                        new PontoGr(p1[0], p1[1], cor, esp),
+                        new PontoGr(p2[0], p2[1], cor, esp),
+                        new PontoGr(p3[0], p3[1], cor, esp),
+                        new PontoGr(p4[0], p4[1], cor, esp),
+                        cor, "", esp));
+            } else {
+                primitivos.inserirFim(new RetanguloGr(p1[0], p1[1], p2[0], p2[1], cor, "", esp));
+            }
         }
     }
 

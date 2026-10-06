@@ -5,15 +5,13 @@ import ponto.Ponto;
 /**
  * Representacao matematica de um triangulo.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class Triangulo {
-    /** Armazena p1 da classe. */
     private Ponto p1;
-    /** Armazena p2 da classe. */
     private Ponto p2;
-    /** Armazena p3 da classe. */
     private Ponto p3;
 
     /**
@@ -34,6 +32,7 @@ public class Triangulo {
 
     /**
      * Retorna o valor de P1.
+     * 
      * @return valor retornado
      */
     public Ponto getP1() {
@@ -51,6 +50,7 @@ public class Triangulo {
 
     /**
      * Retorna o valor de P2.
+     * 
      * @return valor retornado
      */
     public Ponto getP2() {
@@ -68,6 +68,7 @@ public class Triangulo {
 
     /**
      * Retorna o valor de P3.
+     * 
      * @return valor retornado
      */
     public Ponto getP3() {
@@ -85,6 +86,7 @@ public class Triangulo {
 
     /**
      * Retorna a representacao textual do objeto.
+     * 
      * @return valor retornado
      */
     public String toString() {

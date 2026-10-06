@@ -3,24 +3,20 @@ package eds.listaLigadaSimples;
 /**
  * Lista ligada simples generica usada para armazenar os primitivos desenhados.
  *
- * @author Kaua Bezerra Brito
- * @version 20260825
+ * @author Heitor de Sousa Cavalcanti, Kaua Bezerra Brito, Marcelo Liao, Rodrigo
+ *         Ward Leite
+ * @version 06.10.2026
  */
 public class ListaLigadaSimples<T> implements IListaLigadaSimples<T> {
-    /** Armazena inicio da classe. */
     private No inicio;
-    /** Armazena fim da classe. */
     private No fim;
-    /** Armazena qtdNos da classe. */
     private int qtdNos;
 
     /**
      * No de uma lista ligada simples.
      */
     private class No {
-        /** Armazena conteudo da classe. */
         private T conteudo;
-        /** Armazena proximo da classe. */
         private No proximo;
 
         /**
