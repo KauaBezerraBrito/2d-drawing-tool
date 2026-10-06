@@ -4,10 +4,10 @@ Projeto academico desenvolvido em Java/BlueJ para a disciplina de Computacao Gra
 
 ## Autores
 
-Heitor de Sousa Cavalcanti
-Kaua Bezerra Brito
-Marcelo Liao
-Rodrigo Ward Leite
+- Heitor de Sousa Cavalcanti
+- Kaua Bezerra Brito
+- Marcelo Liao
+- Rodrigo Ward Leite
 
 
 ## Objetivo
